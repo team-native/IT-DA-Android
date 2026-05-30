@@ -1,7 +1,7 @@
 package com.example.it_da.domain.model
 
-// Represents a recommended project received from the home data source.
-data class HomeRecommendedProject(
+// Represents a recommended project shared by project-related screens.
+data class RecommendedProject(
     val id: String,
     val title: String,
     val recruitingSummary: String,

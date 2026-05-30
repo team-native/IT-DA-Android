@@ -1,12 +1,11 @@
 package com.example.it_da.ui.screen.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -16,16 +15,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.it_da.R
-import com.example.it_da.ui.screen.home.component.HomeBottomNavigationBar
-import com.example.it_da.ui.component.section.HomeNotificationSection
-import com.example.it_da.ui.component.section.HomeProfileSummarySection
-import com.example.it_da.ui.component.section.ParticipatingProjectSection
-import com.example.it_da.ui.component.section.RecommendedProjectSection
-import com.example.it_da.ui.screen.signup.component.SignUpPrimaryButton
-import com.example.it_da.ui.screen.signup.component.SignUpTopBar
+import com.example.it_da.ui.commonComponent.ItdaBottomNavigationBar
+import com.example.it_da.ui.commonComponent.ItdaLayoutDefaults
+import com.example.it_da.ui.commonComponent.ItdaPrimaryButton
+import com.example.it_da.ui.commonComponent.ItdaTopBar
+import com.example.it_da.ui.commonComponent.section.HomeNotificationSection
+import com.example.it_da.ui.commonComponent.section.HomeProfileSummarySection
+import com.example.it_da.ui.commonComponent.section.ParticipatingProjectSection
+import com.example.it_da.ui.commonComponent.section.RecommendedProjectSection
 import com.example.it_da.ui.screen.home.state.HomeNotificationUiModel
 import com.example.it_da.ui.screen.home.state.HomeProjectCountUiModel
 import com.example.it_da.ui.screen.home.state.HomeUiState
@@ -59,7 +60,7 @@ fun HomeScreen(
             .statusBarsPadding()
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            SignUpTopBar(title = "Home")
+            ItdaTopBar(title = stringResource(id = R.string.home_top_bar_title))
 
             HomeContent(
                 uiState = uiState,
@@ -74,7 +75,7 @@ fun HomeScreen(
             )
         }
 
-        HomeBottomNavigationBar(
+        ItdaBottomNavigationBar(
             onHomeClick = onHomeTabClick,
             onExploreClick = onExploreTabClick,
             onCreateProjectClick = onCreateProjectClick,
@@ -105,10 +106,10 @@ private fun HomeContent(
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 38.dp)
-            .padding(bottom = 80.dp)
+            .padding(top = ItdaLayoutDefaults.LongVerticalSpacing)
+            .padding(bottom = ItdaLayoutDefaults.BottomNavigationContentPadding),
+        verticalArrangement = Arrangement.spacedBy(ItdaLayoutDefaults.LongVerticalSpacing)
     ) {
-        Spacer(modifier = Modifier.height(24.dp))
-
         HomeProfileSummarySection(
             profileImageResId = uiState.profileImageResId,
             userName = uiState.userName,
@@ -116,15 +117,11 @@ private fun HomeContent(
             projectCount = uiState.projectCount
         )
 
-        Spacer(modifier = Modifier.height(22.dp))
-
         RecommendedProjectSection(
             projects = uiState.recommendedProjects,
             onProjectClick = onRecommendedProjectClick,
             onDetailClick = onRecommendedProjectDetailClick
         )
-
-        Spacer(modifier = Modifier.height(28.dp))
 
         ParticipatingProjectSection(
             projects = uiState.participatingProjects,
@@ -132,20 +129,16 @@ private fun HomeContent(
             onDetailClick = onParticipatingProjectDetailClick
         )
 
-        Spacer(modifier = Modifier.height(28.dp))
-
         HomeNotificationSection(
             notifications = uiState.notifications,
             onNotificationClick = onNotificationClick,
             onViewAllClick = onViewAllNotificationsClick
         )
 
-        Spacer(modifier = Modifier.height(28.dp))
-
-        SignUpPrimaryButton(
+        ItdaPrimaryButton(
             enabled = true,
             onClick = onExploreProjectsClick,
-            text = "프로젝트 탐색하기",
+            text = stringResource(id = R.string.home_explore_projects_button),
             containerColor = ItdaHomeExploreButtonGray
         )
     }

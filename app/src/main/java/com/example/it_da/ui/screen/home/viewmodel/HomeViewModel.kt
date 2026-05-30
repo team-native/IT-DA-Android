@@ -5,27 +5,35 @@ import androidx.lifecycle.viewModelScope
 import com.example.it_da.data.repository.HomeRepository
 import com.example.it_da.ui.screen.home.toHomeUiState
 import com.example.it_da.ui.screen.home.state.HomeUiState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class HomeViewModel(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val homeRepository: HomeRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(HomeUiState())
-    val uiState = _uiState.asStateFlow()
+    val uiState = homeRepository.homeDashboard
+        .map { homeDashboard ->
+            homeDashboard.toHomeUiState()
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = HomeUiState()
+        )
 
     init {
-        loadHomeDashboard()
+        refreshHomeDashboard()
     }
 
-    // Loads home dashboard values from the repository and exposes them as UI state.
-    private fun loadHomeDashboard() {
+    // Requests dashboard refresh while ongoing Store changes continue to update UI state.
+    private fun refreshHomeDashboard() {
         viewModelScope.launch {
-            homeRepository.getHomeDashboard()
-                .onSuccess { homeDashboard ->
-                    _uiState.value = homeDashboard.toHomeUiState()
-                }
+            homeRepository.refreshDashboard()
         }
     }
 }
