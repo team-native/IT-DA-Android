@@ -1,4 +1,4 @@
-package com.example.it_da.ui.component.section
+package com.example.it_da.ui.commonComponent.section
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -19,14 +19,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.it_da.ui.component.ItdaCardDefaults
+import com.example.it_da.R
+import com.example.it_da.ui.commonComponent.ItdaCardDefaults
 import com.example.it_da.ui.screen.home.state.HomeProjectCountUiModel
-import com.example.it_da.ui.theme.DotSans
 import com.example.it_da.ui.theme.ItdaPrimaryTextColor
 import com.example.it_da.ui.theme.ItdaSecondaryTextColor
+
+private val HomeProfileImageGreetingSpacing = 13.dp
+private val HomeProfileGreetingDescriptionSpacing = 5.dp
+private val HomeProfileCountCardSpacing = 18.dp
+private val HomeProjectCountLabelValueSpacing = 17.dp
 
 // Shows the user greeting and the project status count summary.
 @Composable
@@ -44,36 +49,32 @@ fun HomeProfileSummarySection(
         ) {
             Image(
                 painter = painterResource(id = profileImageResId),
-                contentDescription = "프로필 이미지",
+                contentDescription = stringResource(id = R.string.home_profile_image_description),
                 modifier = Modifier.size(58.dp)
             )
 
-            Spacer(modifier = Modifier.width(13.dp))
+            Spacer(modifier = Modifier.width(HomeProfileImageGreetingSpacing))
 
             Column {
                 Text(
-                    text = "안녕하세요, ${userName}님 👋",
+                    text = stringResource(id = R.string.home_profile_greeting, userName),
                     color = ItdaPrimaryTextColor,
-                    fontFamily = DotSans,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                    lineHeight = 18.sp
+                    style = MaterialTheme.typography.headlineLarge
                 )
 
-                Spacer(modifier = Modifier.height(5.dp))
+                Spacer(modifier = Modifier.height(HomeProfileGreetingDescriptionSpacing))
 
                 Text(
                     text = greetingDescription,
                     color = ItdaSecondaryTextColor,
-                    fontFamily = DotSans,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 12.sp,
-                    lineHeight = 15.sp
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        lineHeight = 15.sp
+                    )
                 )
             }
         }
 
-        Spacer(modifier = Modifier.height(18.dp))
+        Spacer(modifier = Modifier.height(HomeProfileCountCardSpacing))
 
         HomeProjectCountCard(projectCount = projectCount)
     }
@@ -105,15 +106,15 @@ private fun HomeProjectCountCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             HomeProjectCountItem(
-                label = "지원 중",
+                label = stringResource(id = R.string.home_project_count_applying),
                 count = projectCount.applyingCount
             )
             HomeProjectCountItem(
-                label = "참여 중",
+                label = stringResource(id = R.string.home_project_count_participating),
                 count = projectCount.participatingCount
             )
             HomeProjectCountItem(
-                label = "완료",
+                label = stringResource(id = R.string.home_project_count_completed),
                 count = projectCount.completedCount
             )
         }
@@ -134,21 +135,15 @@ private fun HomeProjectCountItem(
         Text(
             text = label,
             color = ItdaSecondaryTextColor,
-            fontFamily = DotSans,
-            fontWeight = FontWeight.Normal,
-            fontSize = 13.sp,
-            lineHeight = 13.sp
+            style = MaterialTheme.typography.bodyMedium
         )
 
-        Spacer(modifier = Modifier.height(17.dp))
+        Spacer(modifier = Modifier.height(HomeProjectCountLabelValueSpacing))
 
         Text(
             text = count.toString(),
             color = ItdaPrimaryTextColor,
-            fontFamily = DotSans,
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp,
-            lineHeight = 18.sp
+            style = MaterialTheme.typography.headlineLarge
         )
     }
 }

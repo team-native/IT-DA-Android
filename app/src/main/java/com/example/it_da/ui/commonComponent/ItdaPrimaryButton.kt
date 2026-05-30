@@ -1,4 +1,4 @@
-package com.example.it_da.ui.screen.signup.component
+package com.example.it_da.ui.commonComponent
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
@@ -13,23 +13,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.example.it_da.R
 import com.example.it_da.ui.theme.ItdaLoginButtonDisabledBlack
 import com.example.it_da.ui.theme.ItdaButtonTextColor
 
-private val SignUpPrimaryButtonTextWeight = FontWeight(600)
-
-// Shows the sign-up primary action and lets Button enforce the enabled click rule.
+// Shows a primary action and lets Button enforce the enabled click rule.
 @Composable
-fun SignUpPrimaryButton(
+fun ItdaPrimaryButton(
     enabled: Boolean,
     onClick: () -> Unit,
-    text: String = "다음으로",
+    text: String? = null,
     containerColor: Color = MaterialTheme.colorScheme.onBackground,
     modifier: Modifier = Modifier
 ) {
+    val buttonText = text ?: stringResource(id = R.string.common_next)
+
     Button(
         onClick = onClick,
         enabled = enabled,
@@ -50,12 +50,8 @@ fun SignUpPrimaryButton(
     ) {
         Box(contentAlignment = Alignment.Center) {
             Text(
-                text = text,
-                style = MaterialTheme.typography.titleLarge.copy(
-                    fontWeight = SignUpPrimaryButtonTextWeight,
-                    fontSize = 20.sp,
-                    lineHeight = 20.sp
-                )
+                text = buttonText,
+                style = MaterialTheme.typography.displaySmall
             )
         }
     }

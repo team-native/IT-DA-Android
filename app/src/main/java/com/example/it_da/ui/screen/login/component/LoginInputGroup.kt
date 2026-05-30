@@ -8,6 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 
+private val LoginFieldSpacing = 20.dp
+
 // Groups the id and password fields so their spacing stays consistent.
 @Composable
 fun LoginInputGroup(
@@ -24,7 +26,7 @@ fun LoginInputGroup(
             placeholder = "아이디"
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(LoginFieldSpacing))
 
         LoginUnderlineTextField(
             value = password,

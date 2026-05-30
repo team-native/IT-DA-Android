@@ -1,4 +1,4 @@
-package com.example.it_da.ui.component.section
+package com.example.it_da.ui.commonComponent.section
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.example.it_da.ui.component.ItdaSectionHeader
-import com.example.it_da.ui.component.card.ParticipatingProjectCard
+import androidx.compose.ui.res.stringResource
+import com.example.it_da.R
+import com.example.it_da.ui.commonComponent.ItdaLayoutDefaults
+import com.example.it_da.ui.commonComponent.ItdaSectionHeader
+import com.example.it_da.ui.screen.home.component.card.ParticipatingProjectCard
 import com.example.it_da.ui.screen.home.state.ParticipatingProjectUiModel
 
 // Shows the user's participating projects with a card type separate from recommendations.
@@ -21,12 +23,14 @@ fun ParticipatingProjectSection(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
-        ItdaSectionHeader(title = "참여 중인 프로젝트")
+        ItdaSectionHeader(
+            title = stringResource(id = R.string.home_participating_project_section_title)
+        )
 
-        Spacer(modifier = Modifier.height(13.dp))
+        Spacer(modifier = Modifier.height(ItdaLayoutDefaults.SectionHeaderContentSpacing))
 
         Column(
-            verticalArrangement = Arrangement.spacedBy(15.dp),
+            verticalArrangement = Arrangement.spacedBy(ItdaLayoutDefaults.ProjectCardSpacing),
             modifier = Modifier.fillMaxWidth()
         ) {
             projects.forEach { project ->

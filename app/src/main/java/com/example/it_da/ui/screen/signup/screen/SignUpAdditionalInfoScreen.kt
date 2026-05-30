@@ -16,14 +16,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.it_da.ui.component.ItdaSectionHeader
-import com.example.it_da.ui.screen.signup.component.SignUpDropdownTextField
-import com.example.it_da.ui.screen.signup.component.SignUpOutlinedTextField
-import com.example.it_da.ui.screen.signup.component.SignUpPrimaryButton
-import com.example.it_da.ui.screen.signup.component.SignUpTopBar
+import com.example.it_da.ui.commonComponent.ItdaSectionHeader
+import com.example.it_da.ui.commonComponent.ItdaDropdownTextField
+import com.example.it_da.ui.commonComponent.ItdaLayoutDefaults
+import com.example.it_da.ui.commonComponent.ItdaOutlinedTextField
+import com.example.it_da.ui.commonComponent.ItdaPrimaryButton
+import com.example.it_da.ui.commonComponent.ItdaTopBar
 import com.example.it_da.ui.screen.signup.state.SignUpAdditionalInfoUiState
 import com.example.it_da.ui.theme.ITDATheme
 
+private val SignUpAdditionalTopSpacing = 31.dp
+private val SignUpAdditionalHeaderFieldSpacing = 23.dp
+private val SignUpAdditionalButtonSpacing = 120.dp
 
 // Assembles the second sign-up step for additional matching information.
 @Composable
@@ -45,7 +49,7 @@ fun SignUpAdditionalInfoScreen(
             .statusBarsPadding()
             .navigationBarsPadding()
     ) {
-        SignUpTopBar(title = "추가 정보 입력")
+        ItdaTopBar(title = "추가 정보 입력")
 
         Column(
             modifier = Modifier
@@ -53,25 +57,25 @@ fun SignUpAdditionalInfoScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 30.dp)
         ) {
-            Spacer(modifier = Modifier.height(31.dp))
+            Spacer(modifier = Modifier.height(SignUpAdditionalTopSpacing))
 
             ItdaSectionHeader(
                 title = "추가 정보 입력",
                 description = "매칭 품질을 높이기 위해 몇 가지 정보를 입력해 주세요"
             )
 
-            Spacer(modifier = Modifier.height(23.dp))
+            Spacer(modifier = Modifier.height(SignUpAdditionalHeaderFieldSpacing))
 
-            SignUpOutlinedTextField(
+            ItdaOutlinedTextField(
                 label = "이름",
                 value = uiState.name,
                 onValueChange = onNameChange,
                 placeholder = "예: 홍길동, 가나다, 하지와레"
             )
 
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(ItdaLayoutDefaults.ShortVerticalSpacing))
 
-            SignUpDropdownTextField(
+            ItdaDropdownTextField(
                 label = "관심 분야",
                 value = uiState.interestField,
                 onValueChange = onInterestFieldChange,
@@ -79,18 +83,18 @@ fun SignUpAdditionalInfoScreen(
                 onArrowClick = onDropdownArrowClick
             )
 
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(ItdaLayoutDefaults.ShortVerticalSpacing))
 
-            SignUpOutlinedTextField(
+            ItdaOutlinedTextField(
                 label = "기술 스택",
                 value = uiState.techStack,
                 onValueChange = onTechStackChange,
                 placeholder = "예: Python, Figma, Swift"
             )
 
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(ItdaLayoutDefaults.ShortVerticalSpacing))
 
-            SignUpDropdownTextField(
+            ItdaDropdownTextField(
                 label = "기수",
                 value = uiState.cohort,
                 onValueChange = onCohortChange,
@@ -98,9 +102,9 @@ fun SignUpAdditionalInfoScreen(
                 onArrowClick = onDropdownArrowClick
             )
 
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(ItdaLayoutDefaults.ShortVerticalSpacing))
 
-            SignUpDropdownTextField(
+            ItdaDropdownTextField(
                 label = "학과",
                 value = uiState.department,
                 onValueChange = onDepartmentChange,
@@ -108,9 +112,9 @@ fun SignUpAdditionalInfoScreen(
                 onArrowClick = onDropdownArrowClick
             )
 
-            Spacer(modifier = Modifier.height(120.dp))
+            Spacer(modifier = Modifier.height(SignUpAdditionalButtonSpacing))
 
-            SignUpPrimaryButton(
+            ItdaPrimaryButton(
                 enabled = uiState.isNextEnabled,
                 onClick = onNextClick
             )

@@ -1,4 +1,4 @@
-package com.example.it_da.ui.component
+package com.example.it_da.ui.commonComponent
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.runtime.Composable

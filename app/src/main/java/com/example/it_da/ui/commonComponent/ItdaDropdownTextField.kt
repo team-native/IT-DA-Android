@@ -1,4 +1,4 @@
-package com.example.it_da.ui.screen.signup.component
+package com.example.it_da.ui.commonComponent
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -23,21 +23,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.it_da.R
-import com.example.it_da.ui.theme.DotSans
 import com.example.it_da.ui.theme.ItdaInputBorderGray
 import com.example.it_da.ui.theme.ItdaPlaceholderTextColor
 import com.example.it_da.ui.theme.ItdaSecondaryTextColor
 
-private val SignUpDropdownInputTextWeight = FontWeight(600)
-
 // Draws a rounded input with a button arrow reserved for a later dropdown screen.
 @Composable
-fun SignUpDropdownTextField(
+fun ItdaDropdownTextField(
     label: String,
     value: String,
     onValueChange: (String) -> Unit,
@@ -47,17 +42,12 @@ fun SignUpDropdownTextField(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
-    val inputTextStyle = TextStyle(
-        fontFamily = DotSans,
-        fontWeight = SignUpDropdownInputTextWeight,
-        fontSize = 15.sp,
-        lineHeight = 15.sp,
-        letterSpacing = 0.sp,
+    val inputTextStyle = MaterialTheme.typography.labelLarge.copy(
         color = MaterialTheme.colorScheme.onBackground
     )
 
     Column(modifier = modifier.fillMaxWidth()) {
-        SignUpFieldLabel(text = label)
+        ItdaFieldLabel(text = label)
 
         Row(
             modifier = Modifier
@@ -102,7 +92,9 @@ fun SignUpDropdownTextField(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_down_arrow),
-                    contentDescription = "open options",
+                    contentDescription = stringResource(
+                        id = R.string.common_dropdown_open_description
+                    ),
                     tint = ItdaSecondaryTextColor,
                     modifier = Modifier.size(24.dp)
                 )
