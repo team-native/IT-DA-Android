@@ -17,3 +17,6 @@ data object SignUpAdditionalInfoDestination
 
 @Serializable
 data object HomeDestination
+
+@Serializable
+data object ProjectCreateDestination
