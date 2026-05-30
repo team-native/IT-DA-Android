@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.it_da.ui.screen.home.HomeRoute
 import com.example.it_da.ui.screen.login.LoginLaunchRoute
 import com.example.it_da.ui.screen.login.LoginRoute
+import com.example.it_da.ui.screen.notification.route.NotificationRoute
 import com.example.it_da.ui.screen.projectcreate.route.ProjectCreateRoute
 import com.example.it_da.ui.screen.signup.route.SignUpAccountRoute
 import com.example.it_da.ui.screen.signup.route.SignUpAdditionalInfoRoute
@@ -41,6 +42,11 @@ fun AppNavigation() {
     }
     val navigateProjectCreate: () -> Unit = {
         navController.navigate(ProjectCreateDestination) {
+            launchSingleTop = true
+        }
+    }
+    val navigateNotification: () -> Unit = {
+        navController.navigate(NotificationDestination) {
             launchSingleTop = true
         }
     }
@@ -89,7 +95,8 @@ fun AppNavigation() {
 
         composable<HomeDestination> {
             HomeRoute(
-                onCreateProjectClick = navigateProjectCreate
+                onCreateProjectClick = navigateProjectCreate,
+                onNotificationClick = navigateNotification
             )
         }
 
@@ -102,7 +109,20 @@ fun AppNavigation() {
                 onHomeTabClick = navigateHome,
                 onExploreTabClick = {},
                 onCreateProjectClick = navigateProjectCreate,
-                onNotificationTabClick = {},
+                onNotificationTabClick = navigateNotification,
+                onProfileTabClick = {}
+            )
+        }
+
+        composable<NotificationDestination> {
+            NotificationRoute(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onHomeTabClick = navigateHome,
+                onExploreTabClick = {},
+                onCreateProjectClick = navigateProjectCreate,
+                onNotificationTabClick = navigateNotification,
                 onProfileTabClick = {}
             )
         }
