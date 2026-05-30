@@ -3,7 +3,7 @@ package com.example.it_da.ui.screen.signup.route
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.collectAsState
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.it_da.ui.screen.signup.screen.SignUpAccountScreen
 import com.example.it_da.ui.screen.signup.viewmodel.SignUpAccountViewModel
 
@@ -11,7 +11,7 @@ import com.example.it_da.ui.screen.signup.viewmodel.SignUpAccountViewModel
 @Composable
 fun SignUpAccountRoute(
     onNextClick: () -> Unit,
-    viewModel: SignUpAccountViewModel = viewModel()
+    viewModel: SignUpAccountViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
