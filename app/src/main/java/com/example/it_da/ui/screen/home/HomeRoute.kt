@@ -10,6 +10,7 @@ import com.example.it_da.ui.screen.home.viewmodel.HomeViewModelFactory
 // Connects HomeViewModel state to the home screen and leaves future navigation targets as callbacks.
 @Composable
 fun HomeRoute(
+    onProfileTabClick: () -> Unit = {},
     viewModel: HomeViewModel = viewModel(factory = HomeViewModelFactory())
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -27,6 +28,6 @@ fun HomeRoute(
         onExploreTabClick = {},
         onCreateProjectClick = {},
         onNotificationTabClick = {},
-        onProfileTabClick = {}
+        onProfileTabClick = onProfileTabClick
     )
 }

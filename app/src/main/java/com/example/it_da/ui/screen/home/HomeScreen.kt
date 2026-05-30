@@ -19,22 +19,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.it_da.R
-import com.example.it_da.ui.screen.home.component.HomeBottomNavigationBar
 import com.example.it_da.ui.component.section.HomeNotificationSection
 import com.example.it_da.ui.component.section.HomeProfileSummarySection
 import com.example.it_da.ui.component.section.ParticipatingProjectSection
 import com.example.it_da.ui.component.section.RecommendedProjectSection
-import com.example.it_da.ui.screen.signup.component.SignUpPrimaryButton
-import com.example.it_da.ui.screen.signup.component.SignUpTopBar
+import com.example.it_da.ui.screen.home.component.HomeBottomNavigationBar
 import com.example.it_da.ui.screen.home.state.HomeNotificationUiModel
 import com.example.it_da.ui.screen.home.state.HomeProjectCountUiModel
 import com.example.it_da.ui.screen.home.state.HomeUiState
 import com.example.it_da.ui.screen.home.state.ParticipatingProjectUiModel
 import com.example.it_da.ui.screen.home.state.RecommendedProjectUiModel
-import com.example.it_da.ui.theme.ItdaHomeExploreButtonGray
+import com.example.it_da.ui.screen.signup.component.SignUpPrimaryButton
+import com.example.it_da.ui.screen.signup.component.SignUpTopBar
 import com.example.it_da.ui.theme.ITDATheme
+import com.example.it_da.ui.theme.ItdaHomeExploreButtonGray
 
-// Assembles the home screen from state-driven sections and button callbacks.
 @Composable
 fun HomeScreen(
     uiState: HomeUiState,
@@ -87,7 +86,6 @@ fun HomeScreen(
     }
 }
 
-// Lays out the scrollable home content while the bottom navigation remains fixed.
 @Composable
 private fun HomeContent(
     uiState: HomeUiState,
@@ -173,12 +171,11 @@ private fun HomeScreenPreview() {
     }
 }
 
-// Supplies preview-only values so the screen can be checked without the ViewModel.
 private fun previewHomeUiState(): HomeUiState {
     return HomeUiState(
-        userName = "000",
+        userName = "메타몽",
         profileImageResId = R.drawable.home_profile_placeholder,
-        greetingDescription = "상상은 여기서 현실이 됩니다.\n당신의 프로젝트와 팀을 찾아보세요",
+        greetingDescription = "오늘도 멋진 하루예요.\n딱 맞는 프로젝트를 찾아보세요!",
         projectCount = HomeProjectCountUiModel(
             applyingCount = 3,
             participatingCount = 1,
@@ -187,38 +184,39 @@ private fun previewHomeUiState(): HomeUiState {
         recommendedProjects = listOf(
             RecommendedProjectUiModel(
                 id = "recommended-ai-planner",
-                title = "AI 기반 학습 플래너 [0부0부]",
+                title = "AI 기반 학습 플래너",
                 recruitingSummary = "백엔드 개발자 1명 모집",
                 statusText = "모집 중",
                 techStacks = listOf("Back-end"),
-                participantSummary = "IoT과ㆍ2명, SW과 1명 참여"
+                participantSummary = "IoT공학 2명, SW공학 1명 참여"
             ),
             RecommendedProjectUiModel(
                 id = "recommended-pokemon",
-                title = "닮은 포켓몬 검사 [포켓몬백]",
-                recruitingSummary = "iOS 개발자ㆍ1명ㆍ디자이너 1명 모집",
+                title = "포켓몬 도감 검색 앱",
+                recruitingSummary = "iOS 개발 1명, 디자이너 1명 모집",
                 statusText = "마감 임박",
                 techStacks = listOf("iOS", "Design"),
-                participantSummary = "IoT과ㆍ2명, SW과 1명 참여"
+                participantSummary = "IoT공학 2명, SW공학 1명 참여"
             )
         ),
         participatingProjects = listOf(
             ParticipatingProjectUiModel(
                 id = "participating-dalbal",
-                title = "사랑을 이어주는 앱 [달발]",
-                myRole = "내 역할 : iOS 개발",
+                title = "달려서 케어해주는 앱",
+                myRole = "내 역할: iOS 개발",
                 statusText = "진행 중",
-                teamSummary = "팀원 4명ㆍ마감 2026-05-31"
+                teamSummary = "총 4명, 마감 2026-05-31"
             )
         ),
         notifications = listOf(
             HomeNotificationUiModel(
                 id = "notification-message",
                 imageResId = R.drawable.home_notification_mailbox,
-                imageDescription = "새 메시지 알림",
-                message = "지원한 프로젝트에서 새 메시지가 있습니다",
-                elapsedTime = "2분전"
+                imageDescription = "메시지 알림",
+                message = "진행 중인 프로젝트에서 새 메시지가 도착했습니다.",
+                elapsedTime = "2분 전"
             )
         )
     )
 }
+

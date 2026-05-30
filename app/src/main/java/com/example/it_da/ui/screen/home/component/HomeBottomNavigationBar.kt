@@ -35,7 +35,6 @@ private val HomeBottomNavigationBarHeight = 52.5.dp
 private val HomeBottomNavigationContainerHeight = 62.dp
 private val HomeBottomNavigationItemHeight = 48.dp
 
-// Shows the fixed bottom navigation bar and exposes each tab as a callback.
 @Composable
 fun HomeBottomNavigationBar(
     onHomeClick: () -> Unit,
@@ -66,7 +65,7 @@ fun HomeBottomNavigationBar(
                 HomeBottomNavigationItem(
                     iconResId = R.drawable.bottom_bar_home,
                     label = "홈",
-                    contentDescription = "홈",
+                    contentDescription = "홈 탭",
                     iconSize = 25.dp,
                     onClick = onHomeClick
                 )
@@ -74,7 +73,7 @@ fun HomeBottomNavigationBar(
                 HomeBottomNavigationItem(
                     iconResId = R.drawable.bottom_bar_research,
                     label = "탐색",
-                    contentDescription = "탐색",
+                    contentDescription = "탐색 탭",
                     iconSize = 25.dp,
                     onClick = onExploreClick
                 )
@@ -88,15 +87,15 @@ fun HomeBottomNavigationBar(
                 HomeBottomNavigationItem(
                     iconResId = R.drawable.bottom_bar_bell,
                     label = "알림",
-                    contentDescription = "알림",
+                    contentDescription = "알림 탭",
                     iconSize = 25.dp,
                     onClick = onNotificationClick
                 )
 
                 HomeBottomNavigationItem(
                     iconResId = R.drawable.bottom_bar_profile,
-                    label = "프로필",
-                    contentDescription = "프로필",
+                    label = "My",
+                    contentDescription = "내 프로필 탭",
                     iconSize = 25.dp,
                     onClick = onProfileClick
                 )
@@ -110,7 +109,6 @@ fun HomeBottomNavigationBar(
     }
 }
 
-// Shows a normal labeled bottom navigation item.
 @Composable
 private fun HomeBottomNavigationItem(
     @DrawableRes iconResId: Int,
@@ -148,7 +146,6 @@ private fun HomeBottomNavigationItem(
     }
 }
 
-// Shows the center add-project action as the prominent middle bottom button.
 @Composable
 private fun HomeCenterNavigationButton(
     onClick: () -> Unit,
@@ -157,7 +154,7 @@ private fun HomeCenterNavigationButton(
     Box(
         modifier = modifier
             .size(45.dp)
-            .clip(androidx.compose.foundation.shape.RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(12.dp))
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
@@ -168,3 +165,4 @@ private fun HomeCenterNavigationButton(
         )
     }
 }
+

@@ -6,6 +6,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.it_da.ui.screen.home.HomeRoute
 import com.example.it_da.ui.screen.login.LoginRoute
+import com.example.it_da.ui.screen.profile.NotificationSettingsRoute
+import com.example.it_da.ui.screen.profile.PersonalInfoRoute
+import com.example.it_da.ui.screen.profile.ProfileRoute
+import com.example.it_da.ui.screen.profile.ProjectStatusRoute
+import com.example.it_da.ui.screen.profile.SelfIntroductionRoute
+import com.example.it_da.ui.screen.profile.VersionInfoRoute
 import com.example.it_da.ui.screen.signup.route.SignUpAccountRoute
 import com.example.it_da.ui.screen.signup.route.SignUpAdditionalInfoRoute
 
@@ -49,7 +55,75 @@ fun AppNavigation() {
         }
 
         composable(AppRoute.Home.path) {
-            HomeRoute()
+            HomeRoute(
+                onProfileTabClick = {
+                    navController.navigate(AppRoute.Profile.path)
+                }
+            )
+        }
+
+        composable(AppRoute.Profile.path) {
+            ProfileRoute(
+                onHomeTabClick = {
+                    navController.navigate(AppRoute.Home.path)
+                },
+                onNotificationSettingsClick = {
+                    navController.navigate(AppRoute.NotificationSettings.path)
+                },
+                onProjectStatusClick = {
+                    navController.navigate(AppRoute.ProjectStatus.path)
+                },
+                onSelfIntroductionClick = {
+                    navController.navigate(AppRoute.SelfIntroduction.path)
+                },
+                onPersonalInfoClick = {
+                    navController.navigate(AppRoute.PersonalInfo.path)
+                }
+            )
+        }
+
+        composable(AppRoute.PersonalInfo.path) {
+            PersonalInfoRoute(
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable(AppRoute.SelfIntroduction.path) {
+            SelfIntroductionRoute(
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable(AppRoute.ProjectStatus.path) {
+            ProjectStatusRoute(
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable(AppRoute.NotificationSettings.path) {
+            NotificationSettingsRoute(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onVersionInfoClick = {
+                    navController.navigate(AppRoute.VersionInfo.path)
+                },
+                onSignOutClick = {
+                    navController.navigate(AppRoute.Login.path) {
+                        popUpTo(navController.graph.id) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(AppRoute.VersionInfo.path) {
+            VersionInfoRoute(
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

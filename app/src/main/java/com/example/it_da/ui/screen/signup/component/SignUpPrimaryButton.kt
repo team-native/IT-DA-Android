@@ -16,12 +16,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.it_da.ui.theme.ItdaLoginButtonDisabledBlack
 import com.example.it_da.ui.theme.ItdaButtonTextColor
+import com.example.it_da.ui.theme.ItdaLoginButtonDisabledBlack
 
 private val SignUpPrimaryButtonTextWeight = FontWeight(600)
 
-// Shows the sign-up primary action and lets Button enforce the enabled click rule.
 @Composable
 fun SignUpPrimaryButton(
     enabled: Boolean,
@@ -60,3 +59,4 @@ fun SignUpPrimaryButton(
         }
     }
 }
+
