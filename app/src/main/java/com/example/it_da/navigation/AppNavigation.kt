@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.it_da.ui.screen.home.HomeRoute
+import com.example.it_da.ui.screen.login.LoginLaunchRoute
 import com.example.it_da.ui.screen.login.LoginRoute
 import com.example.it_da.ui.screen.signup.route.SignUpAccountRoute
 import com.example.it_da.ui.screen.signup.route.SignUpAdditionalInfoRoute
@@ -13,42 +14,74 @@ import com.example.it_da.ui.screen.signup.route.SignUpAdditionalInfoRoute
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
-
+    val navigateHome: () -> Unit = {
+        navController.navigate(HomeDestination) {
+            popUpTo<HomeDestination> {
+                inclusive = false
+            }
+            launchSingleTop = true
+        }
+    }
+    val navigateHomeFromLaunch: () -> Unit = {
+        navController.navigate(HomeDestination) {
+            popUpTo<LoginLaunchDestination> {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
+    }
+    val navigateHomeFromAuth: () -> Unit = {
+        navController.navigate(HomeDestination) {
+            popUpTo<LoginDestination> {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
+    }
     NavHost(
         navController = navController,
-        startDestination = AppRoute.Login.path
+        startDestination = LoginLaunchDestination
     ) {
-        composable(AppRoute.Login.path) {
+        composable<LoginLaunchDestination> {
+            LoginLaunchRoute(
+                onNavigateToLogin = {
+                    navController.navigate(LoginDestination) {
+                        popUpTo<LoginLaunchDestination> {
+                            inclusive = true
+                        }
+                    }
+                },
+                onNavigateToHome = navigateHomeFromLaunch
+            )
+        }
+
+        composable<LoginDestination> {
             LoginRoute(
                 onSignUpClick = {
-                    navController.navigate(AppRoute.SignUpAccount.path)
+                    navController.navigate(SignUpAccountDestination)
                 },
-                onLoginSuccess = {
-                    navController.navigate(AppRoute.Home.path)
-                },
+                onLoginSuccess = navigateHomeFromAuth,
                 onSocialSignUpSuccess = {
-                    navController.navigate(AppRoute.SignUpAdditionalInfo.path)
+                    navController.navigate(SignUpAdditionalInfoDestination)
                 }
             )
         }
 
-        composable(AppRoute.SignUpAccount.path) {
+        composable<SignUpAccountDestination> {
             SignUpAccountRoute(
                 onNextClick = {
-                    navController.navigate(AppRoute.SignUpAdditionalInfo.path)
+                    navController.navigate(SignUpAdditionalInfoDestination)
                 }
             )
         }
 
-        composable(AppRoute.SignUpAdditionalInfo.path) {
+        composable<SignUpAdditionalInfoDestination> {
             SignUpAdditionalInfoRoute(
-                onNextClick = {
-                    navController.navigate(AppRoute.Home.path)
-                }
+                onSignUpSuccess = navigateHomeFromAuth
             )
         }
 
-        composable(AppRoute.Home.path) {
+        composable<HomeDestination> {
             HomeRoute()
         }
     }
