@@ -28,6 +28,14 @@ import com.example.it_da.ui.screen.login.component.SocialLoginButtonRow
 import com.example.it_da.ui.screen.login.state.LoginUiState
 import com.example.it_da.ui.theme.ITDATheme
 
+private val LoginTopSpacing = 86.dp
+private val LoginLogoIntroSpacing = 46.dp
+private val LoginIntroInputSpacing = 69.dp
+private val LoginInputButtonSpacing = 35.dp
+private val LoginButtonSignUpSpacing = 15.dp
+private val LoginSignUpSocialSpacing = 85.dp
+private val LoginSocialGuideSpacing = 29.dp
+
 // Assembles the complete login screen from focused UI components.
 @Composable
 fun LoginScreen(
@@ -50,7 +58,7 @@ fun LoginScreen(
             .padding(horizontal = 25.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(86.dp))
+        Spacer(modifier = Modifier.height(LoginTopSpacing))
 
         Image(
             painter = painterResource(id = R.drawable.itda_logo),
@@ -58,11 +66,11 @@ fun LoginScreen(
             modifier = Modifier.size(80.dp)
         )
 
-        Spacer(modifier = Modifier.height(46.dp))
+        Spacer(modifier = Modifier.height(LoginLogoIntroSpacing))
 
         LoginIntroTextGroup()
 
-        Spacer(modifier = Modifier.height(69.dp))
+        Spacer(modifier = Modifier.height(LoginIntroInputSpacing))
 
         LoginInputGroup(
             id = uiState.id,
@@ -71,20 +79,20 @@ fun LoginScreen(
             onPasswordChange = onPasswordChange
         )
 
-        Spacer(modifier = Modifier.height(35.dp))
+        Spacer(modifier = Modifier.height(LoginInputButtonSpacing))
 
         LoginButton(
             enabled = uiState.isLoginEnabled,
             onClick = onLoginClick
         )
 
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(LoginButtonSignUpSpacing))
 
         LoginSignUpGuide(
             onSignUpClick = onSignUpClick
         )
 
-        Spacer(modifier = Modifier.height(85.dp))
+        Spacer(modifier = Modifier.height(LoginSignUpSocialSpacing))
 
         SocialLoginButtonRow(
             onAppleLoginClick = onAppleLoginClick,
@@ -92,7 +100,7 @@ fun LoginScreen(
             onKakaoLoginClick = onKakaoLoginClick
         )
 
-        Spacer(modifier = Modifier.height(29.dp))
+        Spacer(modifier = Modifier.height(LoginSocialGuideSpacing))
 
         LoginBottomGuideText()
     }

@@ -3,6 +3,7 @@ package com.example.it_da.ui.screen.login.viewmodel
 import android.content.Context
 import android.content.ContextWrapper
 import com.example.it_da.data.auth.SocialAuthSessionStore
+import com.example.it_da.data.repository.AuthSessionRepository
 import com.example.it_da.data.repository.SocialAuthRepository
 import com.example.it_da.domain.model.SocialAuthAccount
 import com.example.it_da.domain.model.SocialAuthProvider
@@ -41,7 +42,7 @@ class LoginViewModelTest {
         )
         val repository = DeferredSocialAuthRepository()
         val sessionStore = SocialAuthSessionStore()
-        val viewModel = LoginViewModel(repository, sessionStore)
+        val viewModel = LoginViewModel(repository, sessionStore, FakeAuthSessionRepository())
         val navigationEffect = async {
             viewModel.navigationEffect.first()
         }
@@ -77,7 +78,7 @@ class LoginViewModelTest {
         )
         val repository = DeferredSocialAuthRepository()
         val sessionStore = SocialAuthSessionStore()
-        val viewModel = LoginViewModel(repository, sessionStore)
+        val viewModel = LoginViewModel(repository, sessionStore, FakeAuthSessionRepository())
         val navigationEffect = async {
             viewModel.navigationEffect.first()
         }
@@ -102,7 +103,7 @@ class LoginViewModelTest {
     ) {
         val repository = DeferredSocialAuthRepository()
         val sessionStore = SocialAuthSessionStore()
-        val viewModel = LoginViewModel(repository, sessionStore)
+        val viewModel = LoginViewModel(repository, sessionStore, FakeAuthSessionRepository())
 
         viewModel.onGoogleSignUpClick(context)
         runCurrent()
@@ -119,7 +120,11 @@ class LoginViewModelTest {
         mainDispatcherRule.testDispatcher
     ) {
         val repository = DeferredSocialAuthRepository()
-        val viewModel = LoginViewModel(repository, SocialAuthSessionStore())
+        val viewModel = LoginViewModel(
+            repository,
+            SocialAuthSessionStore(),
+            FakeAuthSessionRepository()
+        )
 
         viewModel.onAppleSignUpClick()
 
@@ -133,7 +138,12 @@ class LoginViewModelTest {
         mainDispatcherRule.testDispatcher
     ) {
         val repository = DeferredSocialAuthRepository()
-        val viewModel = LoginViewModel(repository, SocialAuthSessionStore())
+        val authSessionRepository = FakeAuthSessionRepository()
+        val viewModel = LoginViewModel(
+            repository,
+            SocialAuthSessionStore(),
+            authSessionRepository
+        )
         val navigationEffect = async {
             viewModel.navigationEffect.first()
         }
@@ -148,6 +158,30 @@ class LoginViewModelTest {
             navigationEffect.await()
         )
         assertNull(repository.requestedProvider)
+        assertEquals(1, authSessionRepository.saveRequestCount)
+    }
+
+    @Test
+    fun normalLoginStaysOnLoginAndShowsErrorWhenSessionSaveFails() = runTest(
+        mainDispatcherRule.testDispatcher
+    ) {
+        val authSessionRepository = FakeAuthSessionRepository(
+            saveResult = Result.failure(IllegalStateException("Session save failed"))
+        )
+        val viewModel = LoginViewModel(
+            DeferredSocialAuthRepository(),
+            SocialAuthSessionStore(),
+            authSessionRepository
+        )
+
+        viewModel.onIdChange("itda-user")
+        viewModel.onPasswordChange("password")
+        viewModel.onLoginClick()
+        advanceUntilIdle()
+
+        assertFalse(viewModel.uiState.value.isLoginLoading)
+        assertEquals("Session save failed", viewModel.uiState.value.loginErrorMessage)
+        assertEquals(1, authSessionRepository.saveRequestCount)
     }
 
     private class DeferredSocialAuthRepository : SocialAuthRepository {
@@ -167,6 +201,27 @@ class LoginViewModelTest {
         // Completes the suspended fake authentication request with a test-controlled result.
         fun complete(authResult: Result<SocialAuthAccount>) {
             result.complete(authResult)
+        }
+    }
+
+    private class FakeAuthSessionRepository(
+        private val saveResult: Result<Unit> = Result.success(Unit)
+    ) : AuthSessionRepository {
+        var saveRequestCount: Int = 0
+            private set
+
+        override suspend fun hasStoredToken(): Result<Boolean> {
+            return Result.success(false)
+        }
+
+        // Records the temporary token request and returns the configured storage result.
+        override suspend fun saveTemporaryToken(): Result<Unit> {
+            saveRequestCount += 1
+            return saveResult
+        }
+
+        override suspend fun clearToken(): Result<Unit> {
+            return Result.success(Unit)
         }
     }
 }
