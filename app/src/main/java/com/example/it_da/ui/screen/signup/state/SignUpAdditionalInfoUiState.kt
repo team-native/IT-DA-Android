@@ -6,12 +6,15 @@ data class SignUpAdditionalInfoUiState(
     val interestField: String = "",
     val techStack: String = "",
     val cohort: String = "",
-    val department: String = ""
+    val department: String = "",
+    val isSessionSaving: Boolean = false,
+    val sessionErrorMessage: String? = null
 ) {
     val isNextEnabled: Boolean
         get() = name.isNotBlank() &&
             interestField.isNotBlank() &&
             techStack.isNotBlank() &&
             cohort.isNotBlank() &&
-            department.isNotBlank()
+            department.isNotBlank() &&
+            !isSessionSaving
 }

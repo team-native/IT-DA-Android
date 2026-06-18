@@ -15,6 +15,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+private val LoginIntroTitleDescriptionSpacing = 28.dp
+
 // Displays the main launch message as one grouped text element.
 @Composable
 fun LoginIntroTextGroup(
@@ -33,7 +35,7 @@ fun LoginIntroTextGroup(
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(28.dp))
+        Spacer(modifier = Modifier.height(LoginIntroTitleDescriptionSpacing))
 
         Text(
             text = "로그인 한 번으로 당신의 포트폴리오 첫 줄이 바뀝니다.\n퍼즐 조각처럼 딱 맞는 파트너를 만나는 곳,",

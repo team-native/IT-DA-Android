@@ -4,8 +4,8 @@ package com.example.it_da.domain.model
 data class HomeDashboard(
     val userName: String,
     val greetingDescription: String,
-    val projectCount: HomeProjectCount,
-    val recommendedProjects: List<HomeRecommendedProject>,
-    val participatingProjects: List<HomeParticipatingProject>,
-    val notifications: List<HomeNotification>
+    val projectCount: ProjectCount,
+    val recommendedProjects: List<RecommendedProject>,
+    val participatingProjects: List<ParticipatingProject>,
+    val notifications: List<Notification>
 )

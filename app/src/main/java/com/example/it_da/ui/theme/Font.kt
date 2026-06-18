@@ -20,15 +20,11 @@ val DotSans = FontFamily(
     ),
     Font(
         resId = R.font.dot_sans_medium,
-        weight = FontWeight(590)
-    ),
-    Font(
-        resId = R.font.dot_sans_medium,
-        weight = FontWeight(600)
+        weight = FontWeight.SemiBold
     ),
     Font(
         resId = R.font.dot_sans_bold,
-        weight = FontWeight(700)
+        weight = FontWeight.Bold
     ),
     Font(
         resId = R.font.dot_sans_extra_bold,

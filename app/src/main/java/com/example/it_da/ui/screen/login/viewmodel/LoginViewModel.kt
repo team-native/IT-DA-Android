@@ -4,10 +4,13 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.it_da.data.auth.SocialAuthSessionStore
+import com.example.it_da.data.repository.AuthSessionRepository
 import com.example.it_da.data.repository.SocialAuthRepository
 import com.example.it_da.domain.model.SocialAuthProvider
 import com.example.it_da.ui.screen.login.state.LoginNavigationEffect
 import com.example.it_da.ui.screen.login.state.LoginUiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -15,9 +18,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class LoginViewModel(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     private val socialAuthRepository: SocialAuthRepository,
-    private val socialAuthSessionStore: SocialAuthSessionStore = SocialAuthSessionStore.default
+    private val socialAuthSessionStore: SocialAuthSessionStore,
+    private val authSessionRepository: AuthSessionRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState = _uiState.asStateFlow()
@@ -39,14 +44,42 @@ class LoginViewModel(
         }
     }
 
-    // Emits the normal login navigation event until server login validation is connected.
+    // Saves a temporary local session and navigates home until server login validation is connected.
     fun onLoginClick() {
         if (!_uiState.value.isLoginEnabled) {
             return
         }
 
         viewModelScope.launch {
-            _navigationEffect.emit(LoginNavigationEffect.NavigateToHome)
+            _uiState.update { currentState ->
+                currentState.copy(
+                    isLoginLoading = true,
+                    loginErrorMessage = null
+                )
+            }
+
+            authSessionRepository.saveTemporaryToken()
+                .onSuccess {
+                    _uiState.update { currentState ->
+                        currentState.copy(isLoginLoading = false)
+                    }
+                    _navigationEffect.emit(LoginNavigationEffect.NavigateToHome)
+                }
+                .onFailure { throwable ->
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            isLoginLoading = false,
+                            loginErrorMessage = throwable.message ?: "로그인 상태 저장에 실패했습니다."
+                        )
+                    }
+                }
+        }
+    }
+
+    // Clears the normal login error after the UI has shown it to the user.
+    fun clearLoginError() {
+        _uiState.update { currentState ->
+            currentState.copy(loginErrorMessage = null)
         }
     }
 

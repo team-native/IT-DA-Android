@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.it_da.ui.theme.ItdaInputCursorColor
 import com.example.it_da.ui.theme.ItdaInputTextColor
 import com.example.it_da.ui.theme.ItdaInputUnderlineColor
@@ -36,10 +35,8 @@ fun LoginUnderlineTextField(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
-    val textStyle = MaterialTheme.typography.bodyLarge.copy(
-        color = ItdaInputTextColor,
-        fontSize = 16.sp,
-        lineHeight = 20.sp
+    val textStyle = MaterialTheme.typography.labelLarge.copy(
+        color = ItdaInputTextColor
     )
 
     Column(

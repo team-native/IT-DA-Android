@@ -44,7 +44,7 @@ fun LoginButton(
         Box(contentAlignment = Alignment.Center) {
             Text(
                 text = "로그인",
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.titleMedium
             )
         }
     }

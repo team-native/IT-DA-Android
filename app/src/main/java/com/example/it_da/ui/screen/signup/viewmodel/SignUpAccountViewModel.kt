@@ -2,11 +2,14 @@ package com.example.it_da.ui.screen.signup.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.example.it_da.ui.screen.signup.state.SignUpAccountUiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class SignUpAccountViewModel : ViewModel() {
+@HiltViewModel
+class SignUpAccountViewModel @Inject constructor() : ViewModel() {
     private val _uiState = MutableStateFlow(SignUpAccountUiState())
     val uiState = _uiState.asStateFlow()
 

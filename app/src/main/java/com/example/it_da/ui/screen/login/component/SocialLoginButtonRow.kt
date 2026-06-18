@@ -12,6 +12,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.it_da.R
 
+private val SocialLoginButtonSpacing = 12.dp
+
 // Places the social login image buttons in the order shown by the design.
 @Composable
 fun SocialLoginButtonRow(
@@ -22,7 +24,7 @@ fun SocialLoginButtonRow(
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        horizontalArrangement = Arrangement.spacedBy(SocialLoginButtonSpacing)
     ) {
         SocialLoginButton(
             imageResId = R.drawable.ic_apple_login,

@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 val ItdaWhite = Color(0xFFFFFFFF)
 val ItdaBlack = Color(0xFF000000)
 val ItdaTitleGray = Color(0xFF525252)
+val ItdaSectionTextColor = Color(0xFF4F4F4F)
 val ItdaGuideGray = Color(0xFF8C8C8C)
 val ItdaInputBorderGray = Color(0xFF8C8C8C)
 val ItdaLineGray = Color(0x80545454)

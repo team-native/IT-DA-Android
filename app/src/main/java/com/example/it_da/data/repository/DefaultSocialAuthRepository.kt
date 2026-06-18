@@ -4,9 +4,11 @@ import android.content.Context
 import com.example.it_da.data.auth.SocialAuthClient
 import com.example.it_da.domain.model.SocialAuthAccount
 import com.example.it_da.domain.model.SocialAuthProvider
+import javax.inject.Inject
+import kotlin.jvm.JvmSuppressWildcards
 
-class DefaultSocialAuthRepository(
-    private val socialAuthClients: List<SocialAuthClient>
+class DefaultSocialAuthRepository @Inject constructor(
+    private val socialAuthClients: List<@JvmSuppressWildcards SocialAuthClient>
 ) : SocialAuthRepository {
     // Delegates authentication to the SDK client that owns the requested provider.
     override suspend fun authenticate(

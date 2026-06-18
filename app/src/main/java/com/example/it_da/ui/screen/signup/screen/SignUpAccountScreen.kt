@@ -13,20 +13,22 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.it_da.ui.screen.signup.component.SignUpOutlinedTextField
-import com.example.it_da.ui.screen.signup.component.SignUpPrimaryButton
-import com.example.it_da.ui.screen.signup.component.SignUpTopBar
+import com.example.it_da.ui.commonComponent.ItdaOutlinedTextField
+import com.example.it_da.ui.commonComponent.ItdaPrimaryButton
+import com.example.it_da.ui.commonComponent.ItdaTopBar
 import com.example.it_da.ui.screen.signup.state.SignUpAccountUiState
 import com.example.it_da.ui.theme.ITDATheme
 import com.example.it_da.ui.theme.ItdaSecondaryTextColor
 
-private val SignUpSectionTitleWeight = FontWeight.Medium
-private val SignUpDescriptionWeight = FontWeight.Normal
+private val SignUpAccountTopSpacing = 37.dp
+private val SignUpAccountTitleDescriptionSpacing = 16.dp
+private val SignUpAccountDescriptionFieldSpacing = 29.dp
+private val SignUpAccountFieldSpacing = 21.dp
+private val SignUpAccountBottomSpacing = 45.dp
+private const val SignUpAccountFlexibleSpacingWeight = 1f
 
 // Assembles the first sign-up step from focused form components.
 @Composable
@@ -45,7 +47,7 @@ fun SignUpAccountScreen(
             .statusBarsPadding()
             .navigationBarsPadding()
     ) {
-        SignUpTopBar(title = "회원 가입")
+        ItdaTopBar(title = "회원 가입")
 
         Column(
             modifier = Modifier
@@ -53,42 +55,34 @@ fun SignUpAccountScreen(
                 .weight(1f)
                 .padding(horizontal = 32.dp)
         ) {
-            Spacer(modifier = Modifier.height(37.dp))
+            Spacer(modifier = Modifier.height(SignUpAccountTopSpacing))
 
             Text(
                 text = "계정 만들기",
                 color = MaterialTheme.colorScheme.onBackground,
-                style = MaterialTheme.typography.titleLarge.copy(
-                    fontWeight = SignUpSectionTitleWeight,
-                    fontSize = 21.sp,
-                    lineHeight = 21.sp
-                )
+                style = MaterialTheme.typography.titleLarge
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(SignUpAccountTitleDescriptionSpacing))
 
             Text(
                 text = "서비스를 이용하기 위해 기본 정보를 입력해 주세요",
                 color = ItdaSecondaryTextColor,
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    fontWeight = SignUpDescriptionWeight,
-                    fontSize = 13.sp,
-                    lineHeight = 13.sp
-                )
+                style = MaterialTheme.typography.bodyMedium
             )
 
-            Spacer(modifier = Modifier.height(29.dp))
+            Spacer(modifier = Modifier.height(SignUpAccountDescriptionFieldSpacing))
 
-            SignUpOutlinedTextField(
+            ItdaOutlinedTextField(
                 label = "아이디",
                 value = uiState.id,
                 onValueChange = onIdChange,
                 placeholder = "6~15글자"
             )
 
-            Spacer(modifier = Modifier.height(21.dp))
+            Spacer(modifier = Modifier.height(SignUpAccountFieldSpacing))
 
-            SignUpOutlinedTextField(
+            ItdaOutlinedTextField(
                 label = "비밀번호",
                 value = uiState.password,
                 onValueChange = onPasswordChange,
@@ -96,9 +90,9 @@ fun SignUpAccountScreen(
                 visualTransformation = PasswordVisualTransformation()
             )
 
-            Spacer(modifier = Modifier.height(21.dp))
+            Spacer(modifier = Modifier.height(SignUpAccountFieldSpacing))
 
-            SignUpOutlinedTextField(
+            ItdaOutlinedTextField(
                 label = "비밀번호 확인",
                 value = uiState.passwordConfirm,
                 onValueChange = onPasswordConfirmChange,
@@ -106,14 +100,14 @@ fun SignUpAccountScreen(
                 visualTransformation = PasswordVisualTransformation()
             )
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(SignUpAccountFlexibleSpacingWeight))
 
-            SignUpPrimaryButton(
+            ItdaPrimaryButton(
                 enabled = uiState.isNextEnabled,
                 onClick = onNextClick
             )
 
-            Spacer(modifier = Modifier.height(45.dp))
+            Spacer(modifier = Modifier.height(SignUpAccountBottomSpacing))
         }
     }
 }
