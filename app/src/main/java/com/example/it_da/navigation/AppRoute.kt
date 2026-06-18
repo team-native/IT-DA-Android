@@ -20,3 +20,6 @@ data object HomeDestination
 
 @Serializable
 data object ProjectCreateDestination
+
+@Serializable
+data object NotificationDestination
