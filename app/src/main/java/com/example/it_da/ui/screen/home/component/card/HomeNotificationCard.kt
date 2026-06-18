@@ -19,12 +19,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.it_da.ui.commonComponent.ItdaCard
+import com.example.it_da.ui.commonComponent.card.ItdaCard
 import com.example.it_da.ui.screen.home.state.HomeNotificationUiModel
 import com.example.it_da.ui.theme.ItdaSecondaryTextColor
 
 private val HomeNotificationImageContentSpacing = 16.dp
 private val HomeNotificationMessageTimeSpacing = 8.dp
+private val HomeNotificationCardMinHeight = 54.dp
+private val HomeNotificationCardHorizontalPadding = 14.dp
+private val HomeNotificationCardVerticalPadding = 10.dp
+private val HomeNotificationImageSize = 31.dp
+private const val HomeNotificationMessageMaxLines = 1
 
 // Displays one notification summary row with state-provided image, message, and elapsed time.
 @Composable
@@ -36,19 +41,22 @@ fun HomeNotificationCard(
     ItdaCard(
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = 54.dp)
+            .heightIn(min = HomeNotificationCardMinHeight)
             .clickable {
                 onClick(notification.id)
         }
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+            modifier = Modifier.padding(
+                horizontal = HomeNotificationCardHorizontalPadding,
+                vertical = HomeNotificationCardVerticalPadding
+            ),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 painter = painterResource(id = notification.imageResId),
                 contentDescription = notification.imageDescription,
-                modifier = Modifier.size(31.dp)
+                modifier = Modifier.size(HomeNotificationImageSize)
             )
 
             Spacer(modifier = Modifier.width(HomeNotificationImageContentSpacing))
@@ -58,7 +66,7 @@ fun HomeNotificationCard(
                     text = notification.message,
                     color = ItdaSecondaryTextColor,
                     style = MaterialTheme.typography.bodySmall,
-                    maxLines = 1,
+                    maxLines = HomeNotificationMessageMaxLines,
                     overflow = TextOverflow.Ellipsis
                 )
 

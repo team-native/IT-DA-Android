@@ -15,6 +15,7 @@ import com.example.it_da.ui.theme.ItdaPrimaryTextColor
 import com.example.it_da.ui.theme.ItdaSecondaryTextColor
 
 private val ItdaSectionTitleDescriptionSpacing = 12.dp
+private val ItdaSectionDefaultTitleFontSize = 21.sp
 
 // Displays a reusable section title and optional guide text with the app typography.
 @Composable
@@ -22,7 +23,7 @@ fun ItdaSectionHeader(
     title: String,
     modifier: Modifier = Modifier,
     description: String? = null,
-    titleFontSize: TextUnit = 21.sp,
+    titleFontSize: TextUnit = ItdaSectionDefaultTitleFontSize,
     titleFontWeight: FontWeight = FontWeight.SemiBold
 ) {
     Column(modifier = modifier) {

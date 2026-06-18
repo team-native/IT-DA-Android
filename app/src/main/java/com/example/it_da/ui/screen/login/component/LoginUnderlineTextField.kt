@@ -23,6 +23,8 @@ import com.example.it_da.ui.theme.ItdaInputTextColor
 import com.example.it_da.ui.theme.ItdaInputUnderlineColor
 
 private val LoginTextFieldWidth = 295.dp
+private val LoginTextFieldInputHeight = 26.dp
+private val LoginTextFieldUnderlineHeight = 1.dp
 
 // Draws a lightweight text field with the design-specific underline.
 @Composable
@@ -45,7 +47,7 @@ fun LoginUnderlineTextField(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(26.dp)
+                .height(LoginTextFieldInputHeight)
         ) {
             BasicTextField(
                 value = value,
@@ -72,7 +74,7 @@ fun LoginUnderlineTextField(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(1.dp)
+                .height(LoginTextFieldUnderlineHeight)
                 .background(ItdaInputUnderlineColor)
         )
     }

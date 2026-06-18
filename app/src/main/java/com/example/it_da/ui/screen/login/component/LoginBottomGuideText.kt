@@ -9,6 +9,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.example.it_da.ui.theme.ItdaSecondaryTextColor
 
+private val LoginBottomGuideLineHeight = 16.sp
+
 // Displays the bottom social login guide text above the system navigation area.
 @Composable
 fun LoginBottomGuideText(
@@ -18,7 +20,7 @@ fun LoginBottomGuideText(
         text = "소셜 로그인으로 간편하게 가입하고 시작하세요",
         modifier = modifier.fillMaxWidth(),
         color = ItdaSecondaryTextColor,
-        style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 16.sp),
+        style = MaterialTheme.typography.bodyMedium.copy(lineHeight = LoginBottomGuideLineHeight),
         textAlign = TextAlign.Center
     )
 }

@@ -12,6 +12,11 @@ import androidx.compose.ui.unit.dp
 import com.example.it_da.ui.theme.ItdaGuideGray
 import com.example.it_da.ui.theme.ItdaSecondaryTextColor
 
+private val ItdaOutlinedBadgeCornerRadius = 30.dp
+private val ItdaOutlinedBadgeBorderWidth = 1.2.dp
+private val ItdaOutlinedBadgeHorizontalPadding = 12.dp
+private val ItdaOutlinedBadgeVerticalPadding = 6.dp
+
 // Displays a rounded outlined badge for compact labels such as status or tech stack text.
 @Composable
 fun ItdaOutlinedBadge(
@@ -20,15 +25,18 @@ fun ItdaOutlinedBadge(
 ) {
     Surface(
         modifier = modifier,
-        shape = RoundedCornerShape(30.dp),
+        shape = RoundedCornerShape(ItdaOutlinedBadgeCornerRadius),
         color = androidx.compose.ui.graphics.Color.Transparent,
-        border = BorderStroke(1.2.dp, ItdaGuideGray)
+        border = BorderStroke(ItdaOutlinedBadgeBorderWidth, ItdaGuideGray)
     ) {
         Text(
             text = text,
             color = ItdaSecondaryTextColor,
             style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+            modifier = Modifier.padding(
+                horizontal = ItdaOutlinedBadgeHorizontalPadding,
+                vertical = ItdaOutlinedBadgeVerticalPadding
+            )
         )
     }
 }

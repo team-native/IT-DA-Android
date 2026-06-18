@@ -1,17 +1,15 @@
 package com.example.it_da.ui.screen.login.screen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,6 +33,8 @@ private val LoginInputButtonSpacing = 35.dp
 private val LoginButtonSignUpSpacing = 15.dp
 private val LoginSignUpSocialSpacing = 85.dp
 private val LoginSocialGuideSpacing = 29.dp
+private val LoginContentHorizontalPadding = 25.dp
+private val LoginLogoSize = 80.dp
 
 // Assembles the complete login screen from focused UI components.
 @Composable
@@ -49,60 +49,61 @@ fun LoginScreen(
     onKakaoLoginClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .statusBarsPadding()
-            .navigationBarsPadding()
-            .padding(horizontal = 25.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(LoginTopSpacing))
+    Scaffold(modifier = modifier.fillMaxSize()) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .consumeWindowInsets(innerPadding)
+                .padding(horizontal = LoginContentHorizontalPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(LoginTopSpacing))
 
-        Image(
-            painter = painterResource(id = R.drawable.itda_logo),
-            contentDescription = "ITDA logo",
-            modifier = Modifier.size(80.dp)
-        )
+            Image(
+                painter = painterResource(id = R.drawable.itda_logo),
+                contentDescription = "ITDA logo",
+                modifier = Modifier.size(LoginLogoSize)
+            )
 
-        Spacer(modifier = Modifier.height(LoginLogoIntroSpacing))
+            Spacer(modifier = Modifier.height(LoginLogoIntroSpacing))
 
-        LoginIntroTextGroup()
+            LoginIntroTextGroup()
 
-        Spacer(modifier = Modifier.height(LoginIntroInputSpacing))
+            Spacer(modifier = Modifier.height(LoginIntroInputSpacing))
 
-        LoginInputGroup(
-            id = uiState.id,
-            password = uiState.password,
-            onIdChange = onIdChange,
-            onPasswordChange = onPasswordChange
-        )
+            LoginInputGroup(
+                id = uiState.id,
+                password = uiState.password,
+                onIdChange = onIdChange,
+                onPasswordChange = onPasswordChange
+            )
 
-        Spacer(modifier = Modifier.height(LoginInputButtonSpacing))
+            Spacer(modifier = Modifier.height(LoginInputButtonSpacing))
 
-        LoginButton(
-            enabled = uiState.isLoginEnabled,
-            onClick = onLoginClick
-        )
+            LoginButton(
+                enabled = uiState.isLoginEnabled,
+                onClick = onLoginClick
+            )
 
-        Spacer(modifier = Modifier.height(LoginButtonSignUpSpacing))
+            Spacer(modifier = Modifier.height(LoginButtonSignUpSpacing))
 
-        LoginSignUpGuide(
-            onSignUpClick = onSignUpClick
-        )
+            LoginSignUpGuide(
+                onSignUpClick = onSignUpClick
+            )
 
-        Spacer(modifier = Modifier.height(LoginSignUpSocialSpacing))
+            Spacer(modifier = Modifier.height(LoginSignUpSocialSpacing))
 
-        SocialLoginButtonRow(
-            onAppleLoginClick = onAppleLoginClick,
-            onGoogleLoginClick = onGoogleLoginClick,
-            onKakaoLoginClick = onKakaoLoginClick
-        )
+            SocialLoginButtonRow(
+                onAppleLoginClick = onAppleLoginClick,
+                onGoogleLoginClick = onGoogleLoginClick,
+                onKakaoLoginClick = onKakaoLoginClick
+            )
 
-        Spacer(modifier = Modifier.height(LoginSocialGuideSpacing))
+            Spacer(modifier = Modifier.height(LoginSocialGuideSpacing))
 
-        LoginBottomGuideText()
+            LoginBottomGuideText()
+        }
     }
 }
 

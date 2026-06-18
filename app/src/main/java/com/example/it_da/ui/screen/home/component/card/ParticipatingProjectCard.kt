@@ -17,9 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.it_da.R
-import com.example.it_da.ui.commonComponent.ItdaCard
+import com.example.it_da.ui.commonComponent.card.ItdaCard
 import com.example.it_da.ui.commonComponent.ItdaOutlinedBadge
-import com.example.it_da.ui.commonComponent.ItdaUnderlinedTextButton
+import com.example.it_da.ui.commonComponent.button.ItdaUnderlinedTextButton
 import com.example.it_da.ui.screen.home.component.HomeProjectContentEndPadding
 import com.example.it_da.ui.screen.home.component.HomeProjectContentStartPadding
 import com.example.it_da.ui.screen.home.component.HomeProjectTitleStartPadding
@@ -29,6 +29,14 @@ import com.example.it_da.ui.theme.ItdaSecondaryTextColor
 
 private val ParticipatingProjectTitleRoleSpacing = 8.dp
 private val ParticipatingProjectRoleTeamSpacing = 36.dp
+private val ParticipatingProjectCardMinHeight = 106.dp
+private val ParticipatingProjectCardTopPadding = 13.dp
+private val ParticipatingProjectCardBottomPadding = 12.dp
+private const val ParticipatingProjectTitleMaxLines = 1
+private const val ParticipatingProjectRoleMaxLines = 1
+private const val ParticipatingProjectTeamMaxLines = 1
+private const val ParticipatingProjectTitleWeight = 1f
+private const val ParticipatingProjectTeamWeight = 1f
 
 // Displays one participating project with role and progress text supplied by state.
 @Composable
@@ -41,15 +49,15 @@ fun ParticipatingProjectCard(
     ItdaCard(
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = 106.dp)
+            .heightIn(min = ParticipatingProjectCardMinHeight)
             .clickable {
                 onProjectClick(project.id)
         }
     ) {
         Column(
             modifier = Modifier.padding(
-                top = 13.dp,
-                bottom = 12.dp
+                top = ParticipatingProjectCardTopPadding,
+                bottom = ParticipatingProjectCardBottomPadding
             )
         ) {
             Row(
@@ -65,9 +73,9 @@ fun ParticipatingProjectCard(
                     text = project.title,
                     color = ItdaPrimaryTextColor,
                     style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
+                    maxLines = ParticipatingProjectTitleMaxLines,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(ParticipatingProjectTitleWeight)
                 )
 
                 ItdaOutlinedBadge(text = project.statusText)
@@ -79,7 +87,7 @@ fun ParticipatingProjectCard(
                 text = project.myRole,
                 color = ItdaSecondaryTextColor,
                 style = MaterialTheme.typography.bodyMedium,
-                maxLines = 1,
+                maxLines = ParticipatingProjectRoleMaxLines,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(
                     start = HomeProjectContentStartPadding,
@@ -102,9 +110,9 @@ fun ParticipatingProjectCard(
                     text = project.teamSummary,
                     color = ItdaSecondaryTextColor,
                     style = MaterialTheme.typography.labelMedium,
-                    maxLines = 1,
+                    maxLines = ParticipatingProjectTeamMaxLines,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(ParticipatingProjectTeamWeight)
                 )
 
                 ItdaUnderlinedTextButton(

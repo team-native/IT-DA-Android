@@ -5,6 +5,23 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
+private val DotSansLetterSpacing = 0.sp
+private const val DisplayLargeFontSize = 23
+private const val DisplayMediumFontSize = 21
+private const val DisplaySmallFontSize = 20
+private const val HeadlineLargeFontSize = 18
+private const val HeadlineMediumFontSize = 19
+private const val HeadlineSmallFontSize = 12
+private const val TitleLargeFontSize = 21
+private const val TitleMediumFontSize = 16
+private const val TitleSmallFontSize = 13
+private const val BodyLargeFontSize = 15
+private const val BodyMediumFontSize = 13
+private const val BodySmallFontSize = 12
+private const val LabelLargeFontSize = 15
+private const val LabelMediumFontSize = 11
+private const val LabelSmallFontSize = 10
+
 private fun dotSansTextStyle(
     fontWeight: FontWeight,
     fontSize: Int
@@ -13,68 +30,68 @@ private fun dotSansTextStyle(
     fontWeight = fontWeight,
     fontSize = fontSize.sp,
     lineHeight = fontSize.sp,
-    letterSpacing = 0.sp
+    letterSpacing = DotSansLetterSpacing
 )
 
 val Typography = Typography(
     displayLarge = dotSansTextStyle(
         fontWeight = FontWeight.Bold,
-        fontSize = 23
+        fontSize = DisplayLargeFontSize
     ),
     displayMedium = dotSansTextStyle(
         fontWeight = FontWeight.Bold,
-        fontSize = 21
+        fontSize = DisplayMediumFontSize
     ),
     displaySmall = dotSansTextStyle(
         fontWeight = FontWeight.Bold,
-        fontSize = 20
+        fontSize = DisplaySmallFontSize
     ),
     headlineLarge = dotSansTextStyle(
         fontWeight = FontWeight.Bold,
-        fontSize = 18
+        fontSize = HeadlineLargeFontSize
     ),
     headlineMedium = dotSansTextStyle(
         fontWeight = FontWeight.SemiBold,
-        fontSize = 19
+        fontSize = HeadlineMediumFontSize
     ),
     headlineSmall = dotSansTextStyle(
         fontWeight = FontWeight.SemiBold,
-        fontSize = 12
+        fontSize = HeadlineSmallFontSize
     ),
     titleLarge = dotSansTextStyle(
         fontWeight = FontWeight.SemiBold,
-        fontSize = 21
+        fontSize = TitleLargeFontSize
     ),
     titleMedium = dotSansTextStyle(
         fontWeight = FontWeight.SemiBold,
-        fontSize = 16
+        fontSize = TitleMediumFontSize
     ),
     titleSmall = dotSansTextStyle(
         fontWeight = FontWeight.SemiBold,
-        fontSize = 13
+        fontSize = TitleSmallFontSize
     ),
     bodyLarge = dotSansTextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 15
+        fontSize = BodyLargeFontSize
     ),
     bodyMedium = dotSansTextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 13
+        fontSize = BodyMediumFontSize
     ),
     bodySmall = dotSansTextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 12
+        fontSize = BodySmallFontSize
     ),
     labelLarge = dotSansTextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 15
+        fontSize = LabelLargeFontSize
     ),
     labelMedium = dotSansTextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 11
+        fontSize = LabelMediumFontSize
     ),
     labelSmall = dotSansTextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 10
+        fontSize = LabelSmallFontSize
     )
 )

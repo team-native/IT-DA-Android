@@ -11,6 +11,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.example.it_da.ui.theme.ItdaSecondaryTextColor
 
+private val LoginSignUpTextHorizontalPadding = 2.dp
+
 // Displays the sign-up entry point below the login button.
 @Composable
 fun LoginSignUpGuide(
@@ -28,7 +30,7 @@ fun LoginSignUpGuide(
             text = "회원가입하기",
             modifier = Modifier
                 .clickable(onClick = onSignUpClick)
-                .padding(horizontal = 2.dp),
+                .padding(horizontal = LoginSignUpTextHorizontalPadding),
             color = ItdaSecondaryTextColor,
             style = MaterialTheme.typography.bodyMedium.copy(
                 textDecoration = TextDecoration.Underline

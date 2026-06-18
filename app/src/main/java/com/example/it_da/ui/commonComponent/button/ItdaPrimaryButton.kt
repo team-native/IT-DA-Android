@@ -1,4 +1,4 @@
-package com.example.it_da.ui.commonComponent
+package com.example.it_da.ui.commonComponent.button
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
@@ -19,6 +19,10 @@ import com.example.it_da.R
 import com.example.it_da.ui.theme.ItdaLoginButtonDisabledBlack
 import com.example.it_da.ui.theme.ItdaButtonTextColor
 
+private val ItdaPrimaryButtonHeight = 45.dp
+private val ItdaPrimaryButtonCornerRadius = 10.dp
+private val ItdaPrimaryButtonBorderWidth = 1.dp
+
 // Shows a primary action and lets Button enforce the enabled click rule.
 @Composable
 fun ItdaPrimaryButton(
@@ -35,10 +39,10 @@ fun ItdaPrimaryButton(
         enabled = enabled,
         modifier = modifier
             .fillMaxWidth()
-            .height(45.dp),
-        shape = RoundedCornerShape(10.dp),
+            .height(ItdaPrimaryButtonHeight),
+        shape = RoundedCornerShape(ItdaPrimaryButtonCornerRadius),
         border = BorderStroke(
-            width = 1.dp,
+            width = ItdaPrimaryButtonBorderWidth,
             color = ItdaButtonTextColor
         ),
         colors = ButtonDefaults.buttonColors(

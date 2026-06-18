@@ -1,28 +1,24 @@
 package com.example.it_da.ui.screen.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.it_da.R
-import com.example.it_da.ui.commonComponent.ItdaBottomNavigationBar
+import com.example.it_da.ui.commonComponent.bar.ItdaBottomNavigationBar
 import com.example.it_da.ui.commonComponent.ItdaLayoutDefaults
-import com.example.it_da.ui.commonComponent.ItdaPrimaryButton
-import com.example.it_da.ui.commonComponent.ItdaTopBar
+import com.example.it_da.ui.commonComponent.button.ItdaPrimaryButton
+import com.example.it_da.ui.commonComponent.bar.ItdaTopBar
 import com.example.it_da.ui.commonComponent.section.HomeNotificationSection
 import com.example.it_da.ui.commonComponent.section.HomeProfileSummarySection
 import com.example.it_da.ui.commonComponent.section.ParticipatingProjectSection
@@ -34,6 +30,8 @@ import com.example.it_da.ui.screen.home.state.ParticipatingProjectUiModel
 import com.example.it_da.ui.screen.home.state.RecommendedProjectUiModel
 import com.example.it_da.ui.theme.ItdaHomeExploreButtonGray
 import com.example.it_da.ui.theme.ITDATheme
+
+private val HomeContentHorizontalPadding = 38.dp
 
 // Assembles the home screen from state-driven sections and button callbacks.
 @Composable
@@ -53,15 +51,28 @@ fun HomeScreen(
     onProfileTabClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .statusBarsPadding()
-    ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            ItdaTopBar(title = stringResource(id = R.string.home_top_bar_title))
-
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            ItdaTopBar(
+                title = stringResource(id = R.string.home_top_bar_title)
+            )
+        },
+        bottomBar = {
+            ItdaBottomNavigationBar(
+                onHomeClick = onHomeTabClick,
+                onExploreClick = onExploreTabClick,
+                onCreateProjectClick = onCreateProjectClick,
+                onNotificationClick = onNotificationTabClick,
+                onProfileClick = onProfileTabClick
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
             HomeContent(
                 uiState = uiState,
                 onRecommendedProjectClick = onRecommendedProjectClick,
@@ -71,24 +82,15 @@ fun HomeScreen(
                 onNotificationClick = onNotificationClick,
                 onViewAllNotificationsClick = onViewAllNotificationsClick,
                 onExploreProjectsClick = onExploreProjectsClick,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .consumeWindowInsets(innerPadding)
             )
         }
-
-        ItdaBottomNavigationBar(
-            onHomeClick = onHomeTabClick,
-            onExploreClick = onExploreTabClick,
-            onCreateProjectClick = onCreateProjectClick,
-            onNotificationClick = onNotificationTabClick,
-            onProfileClick = onProfileTabClick,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .navigationBarsPadding()
-        )
     }
 }
 
-// Lays out the scrollable home content while the bottom navigation remains fixed.
+// Lays out the home sections inside the screen-level scroll container.
 @Composable
 private fun HomeContent(
     uiState: HomeUiState,
@@ -104,10 +106,8 @@ private fun HomeContent(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 38.dp)
-            .padding(top = ItdaLayoutDefaults.LongVerticalSpacing)
-            .padding(bottom = ItdaLayoutDefaults.BottomNavigationContentPadding),
+            .padding(horizontal = HomeContentHorizontalPadding)
+            .padding(vertical = ItdaLayoutDefaults.LongVerticalSpacing),
         verticalArrangement = Arrangement.spacedBy(ItdaLayoutDefaults.LongVerticalSpacing)
     ) {
         HomeProfileSummarySection(

@@ -1,4 +1,4 @@
-package com.example.it_da.ui.commonComponent
+package com.example.it_da.ui.commonComponent.bar
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,11 +17,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.it_da.R
+import com.example.it_da.ui.commonComponent.button.ItdaImageButton
 import com.example.it_da.ui.theme.ItdaTopBarTitleTextColor
 
 private val ItdaTopBarHeight = 72.dp
 private val ItdaTopTitleTopPadding = 22.dp
 private val ItdaTopBackButtonSize = 30.dp
+private val ItdaTopBackButtonStartPadding = 25.dp
+private val ItdaTopBackButtonTopPadding = 25.dp
+private val ItdaTopDividerHeight = 1.5.dp
 
 // Draws the shared title area and the design line asset below it.
 @Composable
@@ -33,6 +38,7 @@ fun ItdaTopBar(
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .statusBarsPadding()
             .height(ItdaTopBarHeight)
     ) {
         if (onBackClick != null) {
@@ -42,7 +48,10 @@ fun ItdaTopBar(
                 onClick = onBackClick,
                 modifier = Modifier
                     .align(Alignment.TopStart)
-                    .padding(start = 25.dp, top = 25.dp)
+                    .padding(
+                        start = ItdaTopBackButtonStartPadding,
+                        top = ItdaTopBackButtonTopPadding
+                    )
                     .size(ItdaTopBackButtonSize),
                 imageModifier = Modifier.fillMaxSize(),
                 shape = MaterialTheme.shapes.small
@@ -65,7 +74,7 @@ fun ItdaTopBar(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .height(1.5.dp)
+                .height(ItdaTopDividerHeight)
         )
     }
 }

@@ -1,38 +1,37 @@
 package com.example.it_da.ui.screen.projectcreate.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.it_da.R
-import com.example.it_da.ui.commonComponent.ItdaBottomNavigationBar
+import com.example.it_da.ui.commonComponent.bar.ItdaBottomNavigationBar
 import com.example.it_da.ui.commonComponent.ItdaDropdownTextField
 import com.example.it_da.ui.commonComponent.ItdaLayoutDefaults
 import com.example.it_da.ui.commonComponent.ItdaOutlinedTextField
-import com.example.it_da.ui.commonComponent.ItdaPrimaryButton
+import com.example.it_da.ui.commonComponent.button.ItdaPrimaryButton
 import com.example.it_da.ui.commonComponent.ItdaSectionHeader
-import com.example.it_da.ui.commonComponent.ItdaTopBar
+import com.example.it_da.ui.commonComponent.bar.ItdaTopBar
 import com.example.it_da.ui.screen.projectcreate.state.ProjectCreateUiState
 import com.example.it_da.ui.theme.ITDATheme
+
+private val ProjectCreateSectionTitleFontSize = 13.sp
+private val ProjectCreateLargeInputHeight = 82.dp
 
 // Assembles the project creation screen from reusable form and navigation components.
 @Composable
@@ -58,13 +57,9 @@ fun ProjectCreateScreen(
     onProfileTabClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .statusBarsPadding()
-    ) {
-        Column(modifier = Modifier.fillMaxSize()) {
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
             ItdaTopBar(
                 title = stringResource(id = R.string.project_create_top_bar_title),
                 onBackClick = onBackClick,
@@ -72,7 +67,22 @@ fun ProjectCreateScreen(
                     id = R.string.project_create_back_description
                 )
             )
-
+        },
+        bottomBar = {
+            ItdaBottomNavigationBar(
+                onHomeClick = onHomeTabClick,
+                onExploreClick = onExploreTabClick,
+                onCreateProjectClick = onCreateProjectClick,
+                onNotificationClick = onNotificationTabClick,
+                onProfileClick = onProfileTabClick
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
             ProjectCreateContent(
                 uiState = uiState,
                 onProjectNameChange = onProjectNameChange,
@@ -87,24 +97,15 @@ fun ProjectCreateScreen(
                 onDeadlineChange = onDeadlineChange,
                 onDropdownArrowClick = onDropdownArrowClick,
                 onSubmitClick = onSubmitClick,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .consumeWindowInsets(innerPadding)
             )
         }
-
-        ItdaBottomNavigationBar(
-            onHomeClick = onHomeTabClick,
-            onExploreClick = onExploreTabClick,
-            onCreateProjectClick = onCreateProjectClick,
-            onNotificationClick = onNotificationTabClick,
-            onProfileClick = onProfileTabClick,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .navigationBarsPadding()
-        )
     }
 }
 
-// Lays out the scrollable form while leaving room for the fixed bottom navigation bar.
+// Lays out the form sections inside the screen-level scroll container.
 @Composable
 private fun ProjectCreateContent(
     uiState: ProjectCreateUiState,
@@ -125,10 +126,8 @@ private fun ProjectCreateContent(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
             .padding(horizontal = ItdaLayoutDefaults.FormHorizontalPadding)
-            .padding(top = ItdaLayoutDefaults.LongVerticalSpacing)
-            .padding(bottom = ItdaLayoutDefaults.BottomNavigationContentPadding),
+            .padding(vertical = ItdaLayoutDefaults.LongVerticalSpacing),
         verticalArrangement = Arrangement.spacedBy(ItdaLayoutDefaults.LongVerticalSpacing)
     ) {
         ProjectCreateIntroSection(
@@ -253,7 +252,7 @@ private fun ProjectCreateDescriptionSection(
     ) {
         ItdaSectionHeader(
             title = stringResource(id = R.string.project_create_description_goal),
-            titleFontSize = 13.sp
+            titleFontSize = ProjectCreateSectionTitleFontSize
         )
 
         ItdaOutlinedTextField(
@@ -261,7 +260,7 @@ private fun ProjectCreateDescriptionSection(
             value = uiState.introduction,
             onValueChange = onIntroductionChange,
             placeholder = stringResource(id = R.string.project_create_intro_placeholder),
-            inputHeight = 82.dp,
+            inputHeight = ProjectCreateLargeInputHeight,
             singleLine = false
         )
 
@@ -270,7 +269,7 @@ private fun ProjectCreateDescriptionSection(
             value = uiState.goal,
             onValueChange = onGoalChange,
             placeholder = stringResource(id = R.string.project_create_goal_placeholder),
-            inputHeight = 82.dp,
+            inputHeight = ProjectCreateLargeInputHeight,
             singleLine = false
         )
     }
@@ -291,7 +290,7 @@ private fun ProjectCreateRecruitSection(
     ) {
         ItdaSectionHeader(
             title = stringResource(id = R.string.project_create_recruit_info),
-            titleFontSize = 13.sp
+            titleFontSize = ProjectCreateSectionTitleFontSize
         )
 
         ItdaDropdownTextField(

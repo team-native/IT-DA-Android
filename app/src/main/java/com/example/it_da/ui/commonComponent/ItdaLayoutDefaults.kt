@@ -3,9 +3,6 @@ package com.example.it_da.ui.commonComponent
 import androidx.compose.ui.unit.dp
 
 object ItdaLayoutDefaults {
-    // Keeps scrollable screen content visible above the fixed bottom navigation bar.
-    val BottomNavigationContentPadding = 80.dp
-
     // Provides the standard horizontal padding for form-style screens.
     val FormHorizontalPadding = 30.dp
 

@@ -11,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.it_da.R
 import com.example.it_da.ui.commonComponent.ItdaSectionHeader
-import com.example.it_da.ui.commonComponent.ItdaUnderlinedTextButton
+import com.example.it_da.ui.commonComponent.button.ItdaUnderlinedTextButton
 import com.example.it_da.ui.commonComponent.ItdaLayoutDefaults
 import com.example.it_da.ui.screen.home.component.card.HomeNotificationCard
 import com.example.it_da.ui.screen.home.state.HomeNotificationUiModel

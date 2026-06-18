@@ -1,4 +1,4 @@
-package com.example.it_da.ui.commonComponent
+package com.example.it_da.ui.commonComponent.button
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image

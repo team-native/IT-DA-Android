@@ -1,8 +1,9 @@
-package com.example.it_da.ui.commonComponent
+package com.example.it_da.ui.commonComponent.bar
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,6 +38,13 @@ private val ItdaBottomNavigationContainerHeight = 62.dp
 private val ItdaBottomNavigationItemHeight = 48.dp
 private val ItdaCenterNavigationClickSize = 52.dp
 private val ItdaBottomNavigationIconLabelSpacing = 2.dp
+private val ItdaBottomNavigationBorderWidth = 1.dp
+private val ItdaBottomNavigationIconSize = 25.dp
+private val ItdaBottomNavigationItemWidth = 52.dp
+private val ItdaBottomNavigationItemCornerRadius = 8.dp
+private const val ItdaCenterNavigationButtonZIndex = 1f
+private val ItdaCenterNavigationButtonCornerRadius = 12.dp
+private val ItdaCenterNavigationIconSize = 45.dp
 
 // Shows the fixed bottom navigation bar and exposes each tab as a callback.
 @Composable
@@ -45,11 +54,13 @@ fun ItdaBottomNavigationBar(
     onCreateProjectClick: () -> Unit,
     onNotificationClick: () -> Unit,
     onProfileClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .background(ItdaWhite)
+            .navigationBarsPadding()
             .height(ItdaBottomNavigationContainerHeight)
     ) {
         Surface(
@@ -58,7 +69,7 @@ fun ItdaBottomNavigationBar(
                 .fillMaxWidth()
                 .height(ItdaBottomNavigationBarHeight),
             color = ItdaWhite,
-            border = BorderStroke(1.dp, ItdaHomeDividerGray)
+            border = BorderStroke(ItdaBottomNavigationBorderWidth, ItdaHomeDividerGray)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -69,7 +80,7 @@ fun ItdaBottomNavigationBar(
                     iconResId = R.drawable.bottom_bar_home,
                     label = stringResource(id = R.string.home_bottom_tab_home),
                     contentDescription = stringResource(id = R.string.home_bottom_tab_home),
-                    iconSize = 25.dp,
+                    iconSize = ItdaBottomNavigationIconSize,
                     onClick = onHomeClick
                 )
 
@@ -77,7 +88,7 @@ fun ItdaBottomNavigationBar(
                     iconResId = R.drawable.bottom_bar_research,
                     label = stringResource(id = R.string.home_bottom_tab_explore),
                     contentDescription = stringResource(id = R.string.home_bottom_tab_explore),
-                    iconSize = 25.dp,
+                    iconSize = ItdaBottomNavigationIconSize,
                     onClick = onExploreClick
                 )
 
@@ -93,7 +104,7 @@ fun ItdaBottomNavigationBar(
                     contentDescription = stringResource(
                         id = R.string.home_bottom_tab_notification
                     ),
-                    iconSize = 25.dp,
+                    iconSize = ItdaBottomNavigationIconSize,
                     onClick = onNotificationClick
                 )
 
@@ -101,7 +112,7 @@ fun ItdaBottomNavigationBar(
                     iconResId = R.drawable.bottom_bar_profile,
                     label = stringResource(id = R.string.home_bottom_tab_profile),
                     contentDescription = stringResource(id = R.string.home_bottom_tab_profile),
-                    iconSize = 25.dp,
+                    iconSize = ItdaBottomNavigationIconSize,
                     onClick = onProfileClick
                 )
             }
@@ -126,9 +137,9 @@ private fun ItdaBottomNavigationItem(
 ) {
     Column(
         modifier = modifier
-            .width(52.dp)
+            .width(ItdaBottomNavigationItemWidth)
             .height(ItdaBottomNavigationItemHeight)
-            .clip(RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(ItdaBottomNavigationItemCornerRadius))
             .clickable(onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -158,8 +169,12 @@ private fun ItdaCenterNavigationButton(
     Box(
         modifier = modifier
             .size(ItdaCenterNavigationClickSize)
-            .zIndex(1f)
-            .clip(androidx.compose.foundation.shape.RoundedCornerShape(12.dp))
+            .zIndex(ItdaCenterNavigationButtonZIndex)
+            .clip(
+                androidx.compose.foundation.shape.RoundedCornerShape(
+                    ItdaCenterNavigationButtonCornerRadius
+                )
+            )
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
@@ -168,7 +183,7 @@ private fun ItdaCenterNavigationButton(
             contentDescription = stringResource(
                 id = R.string.home_bottom_create_project_description
             ),
-            modifier = Modifier.size(45.dp)
+            modifier = Modifier.size(ItdaCenterNavigationIconSize)
         )
     }
 }

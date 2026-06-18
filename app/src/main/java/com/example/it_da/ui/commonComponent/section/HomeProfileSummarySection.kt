@@ -32,6 +32,11 @@ private val HomeProfileImageGreetingSpacing = 13.dp
 private val HomeProfileGreetingDescriptionSpacing = 5.dp
 private val HomeProfileCountCardSpacing = 18.dp
 private val HomeProjectCountLabelValueSpacing = 17.dp
+private val HomeProfileImageSize = 58.dp
+private val HomeProfileDescriptionLineHeight = 15.sp
+private val HomeProjectCountCardElevation = 8.dp
+private val HomeProjectCountCardCornerRadius = 8.dp
+private val HomeProjectCountCardHeight = 80.dp
 
 // Shows the user greeting and the project status count summary.
 @Composable
@@ -50,7 +55,7 @@ fun HomeProfileSummarySection(
             Image(
                 painter = painterResource(id = profileImageResId),
                 contentDescription = stringResource(id = R.string.home_profile_image_description),
-                modifier = Modifier.size(58.dp)
+                modifier = Modifier.size(HomeProfileImageSize)
             )
 
             Spacer(modifier = Modifier.width(HomeProfileImageGreetingSpacing))
@@ -68,7 +73,7 @@ fun HomeProfileSummarySection(
                     text = greetingDescription,
                     color = ItdaSecondaryTextColor,
                     style = MaterialTheme.typography.bodySmall.copy(
-                        lineHeight = 15.sp
+                        lineHeight = HomeProfileDescriptionLineHeight
                     )
                 )
             }
@@ -90,18 +95,18 @@ private fun HomeProjectCountCard(
         modifier = modifier
             .fillMaxWidth()
             .shadow(
-                elevation = 8.dp,
-                shape = RoundedCornerShape(8.dp),
+                elevation = HomeProjectCountCardElevation,
+                shape = RoundedCornerShape(HomeProjectCountCardCornerRadius),
                 clip = false
         ),
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(HomeProjectCountCardCornerRadius),
         color = MaterialTheme.colorScheme.surface,
         border = ItdaCardDefaults.outlinedBorder()
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(80.dp),
+                .height(HomeProjectCountCardHeight),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {

@@ -19,13 +19,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.it_da.R
-import com.example.it_da.ui.commonComponent.ItdaCard
+import com.example.it_da.ui.commonComponent.card.ItdaCard
 import com.example.it_da.ui.screen.notification.state.NotificationUiModel
 import com.example.it_da.ui.theme.ItdaPrimaryTextColor
 import com.example.it_da.ui.theme.ItdaSecondaryTextColor
 
 private val NotificationTitleDescriptionSpacing = 8.dp
 private val NotificationDescriptionMetadataSpacing = 22.dp
+private val NotificationCardMinHeight = 112.dp
+private val NotificationCardHorizontalPadding = 16.dp
+private val NotificationCardVerticalPadding = 15.dp
+private val NotificationReadIconSize = 14.dp
 private const val NotificationMetadataFlexibleSpacingWeight = 1f
 
 // Displays one notification with its read state image and elapsed time.
@@ -38,13 +42,16 @@ fun NotificationCard(
     ItdaCard(
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = 112.dp)
+            .heightIn(min = NotificationCardMinHeight)
             .clickable {
                 onClick(notification.id)
             }
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 15.dp)
+            modifier = Modifier.padding(
+                horizontal = NotificationCardHorizontalPadding,
+                vertical = NotificationCardVerticalPadding
+            )
         ) {
             Text(
                 text = notification.title,
@@ -81,7 +88,7 @@ fun NotificationCard(
                             R.string.notification_unread_description
                         }
                     ),
-                    modifier = Modifier.size(14.dp)
+                    modifier = Modifier.size(NotificationReadIconSize)
                 )
 
                 Spacer(modifier = Modifier.weight(NotificationMetadataFlexibleSpacingWeight))

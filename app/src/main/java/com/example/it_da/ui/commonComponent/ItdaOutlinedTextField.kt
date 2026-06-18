@@ -25,6 +25,14 @@ import com.example.it_da.ui.theme.ItdaInputBorderGray
 import com.example.it_da.ui.theme.ItdaPlaceholderTextColor
 import com.example.it_da.ui.theme.ItdaSectionTextColor
 
+private val ItdaOutlinedTextFieldDefaultHeight = 40.dp
+private val ItdaOutlinedTextFieldBorderWidth = 1.2.dp
+private val ItdaOutlinedTextFieldCornerRadius = 10.dp
+private val ItdaOutlinedTextFieldHorizontalPadding = 11.dp
+private val ItdaOutlinedTextFieldSingleLineVerticalPadding = 0.dp
+private val ItdaOutlinedTextFieldMultilineVerticalPadding = 11.dp
+private val ItdaFieldLabelBottomPadding = 12.dp
+
 // Draws a labeled rounded input that hides its example text while focused or filled.
 @Composable
 fun ItdaOutlinedTextField(
@@ -34,7 +42,7 @@ fun ItdaOutlinedTextField(
     placeholder: String,
     modifier: Modifier = Modifier,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    inputHeight: Dp = 40.dp,
+    inputHeight: Dp = ItdaOutlinedTextFieldDefaultHeight,
     singleLine: Boolean = true
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -51,13 +59,17 @@ fun ItdaOutlinedTextField(
                 .fillMaxWidth()
                 .height(inputHeight)
                 .border(
-                    width = 1.2.dp,
+                    width = ItdaOutlinedTextFieldBorderWidth,
                     color = ItdaInputBorderGray,
-                    shape = RoundedCornerShape(10.dp)
+                    shape = RoundedCornerShape(ItdaOutlinedTextFieldCornerRadius)
                 )
                 .padding(
-                    horizontal = 11.dp,
-                    vertical = if (singleLine) 0.dp else 11.dp
+                    horizontal = ItdaOutlinedTextFieldHorizontalPadding,
+                    vertical = if (singleLine) {
+                        ItdaOutlinedTextFieldSingleLineVerticalPadding
+                    } else {
+                        ItdaOutlinedTextFieldMultilineVerticalPadding
+                    }
                 ),
             contentAlignment = if (singleLine) Alignment.CenterStart else Alignment.TopStart
         ) {
@@ -93,7 +105,7 @@ fun ItdaFieldLabel(
 ) {
     Text(
         text = text,
-        modifier = modifier.padding(bottom = 12.dp),
+        modifier = modifier.padding(bottom = ItdaFieldLabelBottomPadding),
         color = ItdaSectionTextColor,
         style = MaterialTheme.typography.titleMedium
     )

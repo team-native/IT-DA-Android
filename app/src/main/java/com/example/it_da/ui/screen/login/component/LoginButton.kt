@@ -16,6 +16,11 @@ import androidx.compose.ui.unit.dp
 import com.example.it_da.ui.theme.ItdaButtonTextColor
 import com.example.it_da.ui.theme.ItdaLoginButtonDisabledBlack
 
+private val LoginButtonWidth = 322.dp
+private val LoginButtonHeight = 45.dp
+private val LoginButtonCornerRadius = 10000.dp
+private val LoginButtonBorderWidth = 1.dp
+
 // Shows the primary login action and only enables it when required fields are filled.
 @Composable
 fun LoginButton(
@@ -27,11 +32,11 @@ fun LoginButton(
         onClick = onClick,
         enabled = enabled,
         modifier = modifier
-            .width(322.dp)
-            .height(45.dp),
-        shape = RoundedCornerShape(10000.dp),
+            .width(LoginButtonWidth)
+            .height(LoginButtonHeight),
+        shape = RoundedCornerShape(LoginButtonCornerRadius),
         border = BorderStroke(
-            width = 1.dp,
+            width = LoginButtonBorderWidth,
             color = ItdaButtonTextColor
         ),
         colors = ButtonDefaults.buttonColors(

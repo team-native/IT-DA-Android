@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 private val LoginIntroTitleDescriptionSpacing = 28.dp
+private val LoginIntroDescriptionLineHeight = 20.sp
 
 // Displays the main launch message as one grouped text element.
 @Composable
@@ -41,7 +42,9 @@ fun LoginIntroTextGroup(
             text = "로그인 한 번으로 당신의 포트폴리오 첫 줄이 바뀝니다.\n퍼즐 조각처럼 딱 맞는 파트너를 만나는 곳,",
             modifier = Modifier.fillMaxWidth(),
             color = MaterialTheme.colorScheme.onBackground,
-            style = MaterialTheme.typography.bodyLarge.copy(lineHeight = 20.sp),
+            style = MaterialTheme.typography.bodyLarge.copy(
+                lineHeight = LoginIntroDescriptionLineHeight
+            ),
             textAlign = TextAlign.Center
         )
     }

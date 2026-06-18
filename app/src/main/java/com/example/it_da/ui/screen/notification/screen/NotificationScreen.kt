@@ -1,24 +1,20 @@
 package com.example.it_da.ui.screen.notification.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.it_da.ui.commonComponent.ItdaBottomNavigationBar
 import com.example.it_da.ui.commonComponent.ItdaLayoutDefaults
+import com.example.it_da.ui.commonComponent.bar.ItdaBottomNavigationBar
 import com.example.it_da.ui.screen.notification.component.NotificationBackButton
 import com.example.it_da.ui.screen.notification.component.NotificationCard
 import com.example.it_da.ui.screen.notification.component.NotificationFilterDropdown
@@ -29,6 +25,10 @@ import com.example.it_da.ui.screen.notification.state.NotificationUiState
 import com.example.it_da.ui.theme.ITDATheme
 
 private val NotificationCardSpacing = 12.dp
+private val NotificationContentVerticalPadding = 18.dp
+private val NotificationHeaderTopPadding = 26.dp
+private val NotificationFilterTopPadding = 23.dp
+private val NotificationCardListTopPadding = 22.dp
 
 // Assembles the notification screen from state-driven sections and shared navigation.
 @Composable
@@ -47,36 +47,40 @@ fun NotificationScreen(
     onProfileTabClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .statusBarsPadding()
-    ) {
-        NotificationContent(
-            uiState = uiState,
-            onBackClick = onBackClick,
-            onReadAllClick = onReadAllClick,
-            onFilterMenuClick = onFilterMenuClick,
-            onFilterMenuDismiss = onFilterMenuDismiss,
-            onFilterSelected = onFilterSelected,
-            onNotificationClick = onNotificationClick
-        )
-
-        ItdaBottomNavigationBar(
-            onHomeClick = onHomeTabClick,
-            onExploreClick = onExploreTabClick,
-            onCreateProjectClick = onCreateProjectClick,
-            onNotificationClick = onNotificationTabClick,
-            onProfileClick = onProfileTabClick,
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        bottomBar = {
+            ItdaBottomNavigationBar(
+                onHomeClick = onHomeTabClick,
+                onExploreClick = onExploreTabClick,
+                onCreateProjectClick = onCreateProjectClick,
+                onNotificationClick = onNotificationTabClick,
+                onProfileClick = onProfileTabClick
+            )
+        }
+    ) { innerPadding ->
+        Column(
             modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .navigationBarsPadding()
-        )
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
+            NotificationContent(
+                uiState = uiState,
+                onBackClick = onBackClick,
+                onReadAllClick = onReadAllClick,
+                onFilterMenuClick = onFilterMenuClick,
+                onFilterMenuDismiss = onFilterMenuDismiss,
+                onFilterSelected = onFilterSelected,
+                onNotificationClick = onNotificationClick,
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .consumeWindowInsets(innerPadding)
+            )
+        }
     }
 }
 
-// Lays out scrollable notification controls and cards above the fixed bottom navigation.
+// Lays out notification controls and cards inside the screen-level scroll container.
 @Composable
 private fun NotificationContent(
     uiState: NotificationUiState,
@@ -85,21 +89,20 @@ private fun NotificationContent(
     onFilterMenuClick: () -> Unit,
     onFilterMenuDismiss: () -> Unit,
     onFilterSelected: (NotificationFilter) -> Unit,
-    onNotificationClick: (String) -> Unit
+    onNotificationClick: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 30.dp)
-            .padding(top = 18.dp)
-            .padding(bottom = ItdaLayoutDefaults.BottomNavigationContentPadding)
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = ItdaLayoutDefaults.FormHorizontalPadding)
+            .padding(vertical = NotificationContentVerticalPadding)
     ) {
         NotificationBackButton(onClick = onBackClick)
 
         NotificationHeaderSection(
             onReadAllClick = onReadAllClick,
-            modifier = Modifier.padding(top = 26.dp)
+            modifier = Modifier.padding(top = NotificationHeaderTopPadding)
         )
 
         NotificationFilterDropdown(
@@ -108,13 +111,13 @@ private fun NotificationContent(
             onClick = onFilterMenuClick,
             onDismiss = onFilterMenuDismiss,
             onFilterSelected = onFilterSelected,
-            modifier = Modifier.padding(top = 23.dp)
+            modifier = Modifier.padding(top = NotificationFilterTopPadding)
         )
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 22.dp),
+                .padding(top = NotificationCardListTopPadding),
             verticalArrangement = Arrangement.spacedBy(NotificationCardSpacing)
         ) {
             uiState.notifications.forEach { notification ->

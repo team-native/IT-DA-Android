@@ -25,6 +25,14 @@ import com.example.it_da.ui.screen.notification.state.NotificationFilter
 import com.example.it_da.ui.theme.ItdaInputBorderGray
 import com.example.it_da.ui.theme.ItdaSecondaryTextColor
 
+private val NotificationFilterDropdownTopPadding = 14.dp
+private val NotificationFilterDropdownHeight = 48.dp
+private val NotificationFilterDropdownBorderWidth = 1.dp
+private val NotificationFilterDropdownCornerRadius = 10.dp
+private val NotificationFilterDropdownHorizontalPadding = 16.dp
+private const val NotificationFilterDropdownTextWeight = 1f
+private val NotificationFilterDropdownIconSize = 24.dp
+
 // Displays the notification filter label, selected category, and selectable dropdown options.
 @Composable
 fun NotificationFilterDropdown(
@@ -44,21 +52,21 @@ fun NotificationFilterDropdown(
 
         Row(
             modifier = Modifier
-                .padding(top = 14.dp)
+                .padding(top = NotificationFilterDropdownTopPadding)
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(NotificationFilterDropdownHeight)
                 .border(
-                    width = 1.dp,
+                    width = NotificationFilterDropdownBorderWidth,
                     color = ItdaInputBorderGray,
-                    shape = RoundedCornerShape(10.dp)
+                    shape = RoundedCornerShape(NotificationFilterDropdownCornerRadius)
                 )
                 .clickable(onClick = onClick)
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = NotificationFilterDropdownHorizontalPadding),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = stringResource(id = selectedFilter.labelResId),
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(NotificationFilterDropdownTextWeight),
                 color = ItdaSecondaryTextColor,
                 style = MaterialTheme.typography.titleMedium
             )
@@ -69,7 +77,7 @@ fun NotificationFilterDropdown(
                     id = R.string.notification_filter_open_description
                 ),
                 tint = ItdaSecondaryTextColor,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(NotificationFilterDropdownIconSize)
             )
         }
 

@@ -1,4 +1,4 @@
-package com.example.it_da.ui.commonComponent
+package com.example.it_da.ui.commonComponent.button
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,6 +13,10 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.example.it_da.ui.theme.ItdaSecondaryTextColor
 
+private val ItdaUnderlinedTextButtonCornerRadius = 2.dp
+private val ItdaUnderlinedTextButtonHorizontalPadding = 2.dp
+private val ItdaUnderlinedTextButtonVerticalPadding = 2.dp
+
 // Shows a compact underlined text action for secondary navigation inside cards or sections.
 @Composable
 fun ItdaUnderlinedTextButton(
@@ -22,9 +26,12 @@ fun ItdaUnderlinedTextButton(
 ) {
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(2.dp))
+            .clip(RoundedCornerShape(ItdaUnderlinedTextButtonCornerRadius))
             .clickable(onClick = onClick)
-            .padding(horizontal = 2.dp, vertical = 2.dp)
+            .padding(
+                horizontal = ItdaUnderlinedTextButtonHorizontalPadding,
+                vertical = ItdaUnderlinedTextButtonVerticalPadding
+            )
     ) {
         Text(
             text = text,

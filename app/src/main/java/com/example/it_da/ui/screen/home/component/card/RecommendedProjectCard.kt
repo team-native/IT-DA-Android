@@ -21,9 +21,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.it_da.R
-import com.example.it_da.ui.commonComponent.ItdaCard
+import com.example.it_da.ui.commonComponent.card.ItdaCard
 import com.example.it_da.ui.commonComponent.ItdaOutlinedBadge
-import com.example.it_da.ui.commonComponent.ItdaUnderlinedTextButton
+import com.example.it_da.ui.commonComponent.button.ItdaUnderlinedTextButton
 import com.example.it_da.ui.screen.home.component.HomeProjectContentEndPadding
 import com.example.it_da.ui.screen.home.component.HomeProjectContentStartPadding
 import com.example.it_da.ui.screen.home.component.HomeProjectTitleStartPadding
@@ -35,6 +35,14 @@ private val RecommendedProjectTitleRecruitSpacing = 8.dp
 private val RecommendedProjectRecruitStackSpacing = 18.dp
 private val RecommendedProjectTechStackSpacing = 6.dp
 private val RecommendedProjectStackParticipantsSpacing = 13.dp
+private val RecommendedProjectCardMinHeight = 118.dp
+private val RecommendedProjectCardTopPadding = 13.dp
+private val RecommendedProjectCardBottomPadding = 12.dp
+private const val RecommendedProjectTitleMaxLines = 1
+private const val RecommendedProjectRecruitingMaxLines = 1
+private const val RecommendedProjectParticipantMaxLines = 1
+private const val RecommendedProjectTitleWeight = 1f
+private const val RecommendedProjectParticipantWeight = 1f
 
 // Displays one recommended project with state-provided title, status, stack, and participant text.
 @Composable
@@ -47,15 +55,15 @@ fun RecommendedProjectCard(
     ItdaCard(
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = 118.dp)
+            .heightIn(min = RecommendedProjectCardMinHeight)
             .clickable {
                 onProjectClick(project.id)
         }
     ) {
         Column(
             modifier = Modifier.padding(
-                top = 13.dp,
-                bottom = 12.dp
+                top = RecommendedProjectCardTopPadding,
+                bottom = RecommendedProjectCardBottomPadding
             )
         ) {
             Row(
@@ -71,9 +79,9 @@ fun RecommendedProjectCard(
                     text = project.title,
                     color = ItdaPrimaryTextColor,
                     style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
+                    maxLines = RecommendedProjectTitleMaxLines,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(RecommendedProjectTitleWeight)
                 )
 
                 ItdaOutlinedBadge(text = project.statusText)
@@ -85,7 +93,7 @@ fun RecommendedProjectCard(
                 text = project.recruitingSummary,
                 color = ItdaSecondaryTextColor,
                 style = MaterialTheme.typography.bodyMedium,
-                maxLines = 1,
+                maxLines = RecommendedProjectRecruitingMaxLines,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(
                     start = HomeProjectContentStartPadding,
@@ -123,14 +131,14 @@ fun RecommendedProjectCard(
             ) {
                 Box(
                     modifier = Modifier
-                        .weight(1f)
+                        .weight(RecommendedProjectParticipantWeight)
                         .horizontalScroll(rememberScrollState())
                 ) {
                     Text(
                         text = project.participantSummary,
                         color = ItdaSecondaryTextColor,
                         style = MaterialTheme.typography.labelMedium,
-                        maxLines = 1,
+                        maxLines = RecommendedProjectParticipantMaxLines,
                         softWrap = false
                     )
                 }

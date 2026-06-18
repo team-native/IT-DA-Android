@@ -30,6 +30,15 @@ import com.example.it_da.ui.theme.ItdaInputBorderGray
 import com.example.it_da.ui.theme.ItdaPlaceholderTextColor
 import com.example.it_da.ui.theme.ItdaSecondaryTextColor
 
+private val ItdaDropdownTextFieldHeight = 40.dp
+private val ItdaDropdownTextFieldBorderWidth = 1.2.dp
+private val ItdaDropdownTextFieldCornerRadius = 10.dp
+private val ItdaDropdownTextFieldStartPadding = 15.dp
+private val ItdaDropdownTextFieldEndPadding = 4.dp
+private const val ItdaDropdownTextFieldValueWeight = 1f
+private val ItdaDropdownTextFieldArrowButtonSize = 44.dp
+private val ItdaDropdownTextFieldArrowIconSize = 24.dp
+
 // Draws a rounded input with a button arrow reserved for a later dropdown screen.
 @Composable
 fun ItdaDropdownTextField(
@@ -52,17 +61,20 @@ fun ItdaDropdownTextField(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(40.dp)
+                .height(ItdaDropdownTextFieldHeight)
                 .border(
-                    width = 1.2.dp,
+                    width = ItdaDropdownTextFieldBorderWidth,
                     color = ItdaInputBorderGray,
-                    shape = RoundedCornerShape(10.dp)
+                    shape = RoundedCornerShape(ItdaDropdownTextFieldCornerRadius)
                 )
-                .padding(start = 15.dp, end = 4.dp),
+                .padding(
+                    start = ItdaDropdownTextFieldStartPadding,
+                    end = ItdaDropdownTextFieldEndPadding
+                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(ItdaDropdownTextFieldValueWeight),
                 contentAlignment = Alignment.CenterStart
             ) {
                 BasicTextField(
@@ -88,7 +100,7 @@ fun ItdaDropdownTextField(
 
             IconButton(
                 onClick = onArrowClick,
-                modifier = Modifier.size(44.dp)
+                modifier = Modifier.size(ItdaDropdownTextFieldArrowButtonSize)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_down_arrow),
@@ -96,7 +108,7 @@ fun ItdaDropdownTextField(
                         id = R.string.common_dropdown_open_description
                     ),
                     tint = ItdaSecondaryTextColor,
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(ItdaDropdownTextFieldArrowIconSize)
                 )
             }
         }

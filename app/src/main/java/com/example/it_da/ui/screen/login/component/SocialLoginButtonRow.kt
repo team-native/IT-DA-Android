@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.example.it_da.R
 
 private val SocialLoginButtonSpacing = 12.dp
+private val SocialLoginButtonSize = 43.dp
 
 // Places the social login image buttons in the order shown by the design.
 @Composable
@@ -58,7 +59,7 @@ private fun SocialLoginButton(
         painter = painterResource(id = imageResId),
         contentDescription = contentDescription,
         modifier = modifier
-            .size(43.dp)
+            .size(SocialLoginButtonSize)
             .clickable(onClick = onClick)
     )
 }
